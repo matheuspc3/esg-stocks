@@ -17,7 +17,7 @@ st.sidebar.image(logo_path, width=200, use_container_width =True)
 st.sidebar.title("🐺 Projeto ESG - Carteira Sustentável")
 page = st.sidebar.radio(
     "Navegação",
-    ["Introdução", "Fundamentações Teóricas","Novo Mercado", "ISE", "Carteira", "Otimização"],
+    ["Introdução", "Fundamentações Teóricas"," Análise Fundamentalista", "ISE", "Carteira", "Otimização"],
 )
 
 # ======================================
@@ -81,10 +81,82 @@ elif page == "Fundamentações Teóricas":
     A fundamentação matemática e estatística é essencial para entender **como estruturar uma carteira eficiente** que equilibra **retorno financeiro e sustentabilidade**.
     """)
 
-elif page == "Novo Mercado":
-    st.title("Novo Mercado")
+elif page == " Análise Fundamentalista":
     st.markdown("""
-                """)
+    ### 💼 Análise Fundamentalista de Empresas (2025)
+    Selecione um ticker abaixo para visualizar os principais indicadores financeiros e comentários sobre seu desempenho.
+    """)
+
+    # Lista de tickers
+    STOCKS = [ 
+        "PSSA3.SA",  # Porto Seguro
+        "SBSP3.SA",  # Sabesp
+        "SAPR4.SA",  # Sanepar
+        "ODPV3.SA",  # Odontoprev
+        "UGPA3.SA",  # Ultrapar
+        "EGIE3.SA",  # Engie Brasil
+        "ITUB4.SA",  # Itaú Unibanco
+        "SUZB3.SA",  # Suzano
+        "RADL3.SA",  # Raia Drogasil
+        "BBAS3.SA"   # Banco do Brasil
+    ]
+
+    # Dropdown de seleção
+    ticker = st.selectbox("Selecione uma empresa:", STOCKS)
+
+    # Obtém os dados
+    data = yf.Ticker(ticker)
+
+    st.subheader(f"📊 {data.info.get('shortName', ticker)}")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("#### Indicadores Financeiros")
+        fundamentals = {
+            "Setor": data.info.get("sector", "N/A"),
+            "Valor de Mercado (R$)": f"{data.info.get('marketCap', 0)/1e9:.2f} Bi",
+            "P/L": round(data.info.get("trailingPE", 0), 2),
+            "P/VP": round(data.info.get("priceToBook", 0), 2),
+            "ROE (%)": round(data.info.get("returnOnEquity", 0) * 100, 2) if data.info.get("returnOnEquity") else "N/A",
+            "Dividend Yield (%)": round(data.info.get("dividendYield", 0) * 100, 2) if data.info.get("dividendYield") else "N/A",
+        }
+        st.table(pd.DataFrame(fundamentals.items(), columns=["Indicador", "Valor"]))
+
+    with col2:
+        st.markdown("#### 🧠 Interpretação Fundamentalista")
+        pe = data.info.get("trailingPE", None)
+        roe = data.info.get("returnOnEquity", None)
+        dy = data.info.get("dividendYield", None)
+
+        insights = []
+
+        if pe and roe:
+            if pe < 10 and roe > 0.15:
+                insights.append("✅ **Valuation descontado**: P/L baixo e ROE alto sugerem empresa eficiente e barata.\n")
+            elif pe > 20 and roe < 0.10:
+                insights.append("⚠️ **Valuation elevado**: P/L alto e ROE baixo indicam possível sobreprecificação.\n")
+            else:
+                insights.append("ℹ️ P/L e ROE em linha com o mercado.\n")
+        else:
+            insights.append("❌ Dados de P/L ou ROE indisponíveis.\n")
+
+        if dy and dy > 0.04:
+            insights.append("💸 **Bom pagador de dividendos**: Dividend Yield acima de 4%.\n")
+        else:
+            insights.append("💤 Dividend Yield modesto ou não informado.\n")
+
+        insights.append("📈 **Histórico de crescimento**: verifique evolução do patrimônio líquido e lucros no DRE.\n")
+
+        st.markdown("\n".join(insights))
+
+    # Mostra histórico de preços
+    st.markdown("#### 📅 Histórico de Preço (5 anos)")
+    hist = data.history(period="5y")
+    st.line_chart(hist["Close"])
+
+    st.caption("Fonte: Yahoo Finance — Dados sujeitos a atualização.")
+
 # ======================================
 # PÁGINA 3 - ISE (ÍNDICE DE SUSTENTABILIDADE EMPRESARIAL)
 # ======================================
