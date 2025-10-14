@@ -17,7 +17,7 @@ st.sidebar.image(logo_path, width=200, use_container_width =True)
 st.sidebar.title("🐺 Projeto ESG - Carteira Sustentável")
 page = st.sidebar.radio(
     "Navegação",
-    ["Introdução", "Fundamentações Teóricas", "ISE", "Carteira", "Otimização"],
+    ["Introdução", "Fundamentações Teóricas","Novo Mercado", "ISE", "Carteira", "Otimização"],
 )
 
 # ======================================
@@ -81,7 +81,10 @@ elif page == "Fundamentações Teóricas":
     A fundamentação matemática e estatística é essencial para entender **como estruturar uma carteira eficiente** que equilibra **retorno financeiro e sustentabilidade**.
     """)
 
-    
+elif page == "Novo Mercado":
+    st.title("Novo Mercado")
+    st.markdown("""
+                """)
 # ======================================
 # PÁGINA 3 - ISE (ÍNDICE DE SUSTENTABILIDADE EMPRESARIAL)
 # ======================================
