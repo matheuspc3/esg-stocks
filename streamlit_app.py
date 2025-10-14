@@ -17,39 +17,61 @@ st.sidebar.image(logo_path, width=200, use_container_width =True)
 st.sidebar.title("🐺 Projeto ESG - Carteira Sustentável")
 page = st.sidebar.radio(
     "Navegação",
-    ["Introdução", "Fundamentações Teóricas"," Análise Fundamentalista", "ISE", "Carteira", "Otimização"],
+    ["Eixos Teóricos da Pesquisa", "Novo Mercado"," ISE", "Análise Fundamentalista", "Carteira", "Otimização"],
 )
 
 # ======================================
 # PÁGINA 1 - INTRODUÇÃO
 # ======================================
-if page == "Introdução":
-    st.title("🌱 Introdução")
+if page == "Eixos Teóricos da Pesquisa":
+    st.title("Eixos Teóricos da Pesquisa")
     st.markdown("""
-    O presente projeto tem como objetivo o **desenvolvimento de uma Carteira ESG (Environmental, Social and Governance)**,
-    voltada à análise de desempenho de empresas com **alto comprometimento socioambiental**.
+    ### Introdução 
+    O trabalho se apoia em três eixos principais: o primeiro discute as políticas ESG como ferramenta estratégica de sustentabilidade corporativa; 
+    o segundo aborda a governança corporativa e o Novo Mercado como mecanismos institucionais de transparência e controle; 
+    e o terceiro relaciona essas práticas ao valor de mercado e ao desempenho financeiro das empresas.
 
-    --- 
-    ### 💡 O que é ESG?
-    O termo **ESG** (do inglês *Environmental, Social and Governance*) refere-se a três pilares principais que avaliam o impacto e a sustentabilidade de uma empresa:
-    - **E – Ambiental:** gestão de recursos naturais, emissão de carbono, políticas de sustentabilidade;
-    - **S – Social:** relações com funcionários, comunidade e consumidores;
-    - **G – Governança:** ética corporativa, transparência e estrutura de liderança.
-
+    Assim, teoricamente, a pesquisa parte da premissa de que práticas robustas de governança e sustentabilidade — materializadas no Novo Mercado e medidas pelo ISE B3 — 
+    aumentam o valor e a eficiência das companhias no longo prazo.
     ---
-    ### 🎯 Por que este projeto?
-    O mercado financeiro moderno demanda **investimentos mais responsáveis e sustentáveis**.  
-    Esta carteira permite visualizar, comparar e analisar empresas listadas no **Índice de Sustentabilidade Empresarial (ISE B3)**,
-    identificando aquelas que combinam **retorno financeiro** com **impacto positivo**.
-                
+    ### 🎓 1. Eixo 1 – ESG (Environmental, Social and Governance)
+    O conceito de ESG surgiu a partir das práticas de responsabilidade social corporativa e foi institucionalizado em relatórios do World Bank (2004) e da ONU (Agenda 2030), 
+    com o objetivo de mensurar o impacto ambiental, social e de governança das empresas.
+
+    A ESG é tratada como um instrumento de gestão estratégica que alinha os objetivos corporativos ao desenvolvimento sustentável, promovendo a criação de valor no longo prazo.
+    ---
+    ### 2. Eixo 2 – Governança Corporativa e o Novo Mercado
+    A governança corporativa é o sistema pelo qual as empresas são dirigidas e controladas (Carvalho, 2003).
+    O Novo Mercado da B3, criado em 2000, representa o nível máximo de governança no mercado brasileiro e serve como mecanismo institucional para garantir transparência, equidade e prestação de contas.
+    ---
+    ### 3. Eixo 3 – Valor da Empresa e Desempenho Financeiro
+    A literatura demonstra que a adesão às práticas ESG e de governança tende a aumentar o valor da empresa e a rentabilidade (Santos & Pedreira, 2004; Martins et al., 2006; Ferreira, 2020).
+
+    A fundamentação teórica do trabalho se apoia na interseção entre sustentabilidade e governança corporativa como determinantes do valor empresarial.
+    Ou seja:
+    
+    ESG fornece as diretrizes estratégicas de sustentabilidade →
+    O Novo Mercado fornece a estrutura institucional de governança →
+    E o resultado esperado é melhor desempenho financeiro e reputacional.
+    ---
     [Artigo base do trabalho](https://drive.google.com/file/d/1ioDajfIz_cGj8WEVl5o9Ksmvf-hi9Cxm/view?usp=sharing)
+    ---
+    **Referências**
+        B3. (2024). Diretrizes do Novo Mercado. São Paulo: Brasil, Bolsa, Balcão.
+        B3. (2025a). Relatório Anual de Sustentabilidade. São Paulo: B3.
+        CARVALHO, A. G. (2003). Governança Corporativa: O Papel dos Conselhos de Administração. São Paulo: Atlas.
+        MARTINS, O. S.; PROCIAOY, J. L.; VERDI, R. (2009). Estrutura de Governança e Valor de Mercado. Revista de Administração.
+        ONU BRASIL. (2025). Objetivos de Desenvolvimento Sustentável. Brasília: Organização das Nações Unidas.
+        RSD JOURNAL. (2024). ESG e Desempenho Financeiro no Mercado Brasileiro. Revista Scientific Development.
+        WORLD BANK. (2004). World Development Report: Sustainable Development. Washington, D.C.
+    
     """)
 
 # ======================================
 # PÁGINA 2 - FUNDAMENTAÇÕES TEÓRICAS
 # ======================================
-elif page == "Fundamentações Teóricas":
-    st.title("📚 Fundamentações Teóricas")
+elif page == "Novo Mercado":
+    st.title("Fundamentações Teóricas")
     st.markdown("""
     A fundamentação teórica do projeto baseia-se em estudos sobre:
     
@@ -59,7 +81,7 @@ elif page == "Fundamentações Teóricas":
     - **Indicadores de Sustentabilidade** e modelos de governança corporativa.
 
     ---
-    ### 🧮 Fórmulas em LaTeX
+    ### Fórmulas em LaTeX
 
     Exemplo da fórmula do **retorno esperado da carteira**:
 
@@ -83,7 +105,7 @@ elif page == "Fundamentações Teóricas":
 
 elif page == " Análise Fundamentalista":
     st.markdown("""
-    ### 💼 Análise Fundamentalista de Empresas (2025)
+    ### Análise Fundamentalista de Empresas (2025)
     Selecione um ticker abaixo para visualizar os principais indicadores financeiros e comentários sobre seu desempenho.
     """)
 
@@ -133,25 +155,25 @@ elif page == " Análise Fundamentalista":
 
         if pe and roe:
             if pe < 10 and roe > 0.15:
-                insights.append("✅ **Valuation descontado**: P/L baixo e ROE alto sugerem empresa eficiente e barata.\n")
+                insights.append("**Valuation descontado**: P/L baixo e ROE alto sugerem empresa eficiente e barata.\n")
             elif pe > 20 and roe < 0.10:
-                insights.append("⚠️ **Valuation elevado**: P/L alto e ROE baixo indicam possível sobreprecificação.\n")
+                insights.append("**Valuation elevado**: P/L alto e ROE baixo indicam possível sobreprecificação.\n")
             else:
-                insights.append("ℹ️ P/L e ROE em linha com o mercado.\n")
+                insights.append("P/L e ROE em linha com o mercado.\n")
         else:
-            insights.append("❌ Dados de P/L ou ROE indisponíveis.\n")
+            insights.append("Dados de P/L ou ROE indisponíveis.\n")
 
         if dy and dy > 0.04:
-            insights.append("💸 **Bom pagador de dividendos**: Dividend Yield acima de 4%.\n")
+            insights.append("**Bom pagador de dividendos**: Dividend Yield acima de 4%.\n")
         else:
-            insights.append("💤 Dividend Yield modesto ou não informado.\n")
+            insights.append("Dividend Yield modesto ou não informado.\n")
 
-        insights.append("📈 **Histórico de crescimento**: verifique evolução do patrimônio líquido e lucros no DRE.\n")
+        insights.append("**Histórico de crescimento**: verifique evolução do patrimônio líquido e lucros no DRE.\n")
 
         st.markdown("\n".join(insights))
 
     # Mostra histórico de preços
-    st.markdown("#### 📅 Histórico de Preço (5 anos)")
+    st.markdown("#### Histórico de Preço (5 anos)")
     hist = data.history(period="5y")
     st.line_chart(hist["Close"])
 
@@ -161,7 +183,7 @@ elif page == " Análise Fundamentalista":
 # PÁGINA 3 - ISE (ÍNDICE DE SUSTENTABILIDADE EMPRESARIAL)
 # ======================================
 elif page == "ISE":
-    st.title("🏛️ Índice de Sustentabilidade Empresarial (ISE B3)")
+    st.title("Índice de Sustentabilidade Empresarial (ISE B3)")
     st.markdown("""
     O **ISE B3** é um índice da **Bolsa de Valores do Brasil (B3)** que reúne empresas com **as melhores práticas ESG**.
     O Score ISE B3 é utilizado como critério de seleção das empresas integrantes da carteira e como base para ponderação dos ativos que a comporão. 
@@ -177,7 +199,7 @@ elif page == "ISE":
     - e governança corporativa.
 
     ---
-    ### 🧩 Critérios de Inclusão
+    ### Critérios de Inclusão
     A metodologia de seleção inclui:
     - Questionários detalhados de sustentabilidade;
     - Auditoria independente;
@@ -185,7 +207,7 @@ elif page == "ISE":
     - Comprometimento com os Objetivos de Desenvolvimento Sustentável (ODS da ONU).
 
     ---
-    ### 💼 Exemplos de empresas integrantes (2025)
+    ### Exemplos de empresas integrantes (2025)
     - **PSSA3.SA** – Porto Seguro  
     - **SBSP3.SA** – Sabesp  
     - **SAPR4.SA** – Sanepar (preferencial)  
@@ -465,18 +487,18 @@ elif page == "Carteira":
 # PÁGINA 5 - OTIMIZAÇÃO
 # ======================================
 elif page == "Otimização":
-    st.title("⚙️ Otimização da Carteira ESG")
+    st.title("Otimização da Carteira ESG")
     st.markdown("""
     Nesta seção, será implementado o **modelo de otimização da carteira ESG**, com base na **Teoria Moderna de Portfólios**.
 
     ---
-    ### 📈 Objetivo:
+    ### Objetivo:
     - Maximizar o **retorno esperado**;
     - Minimizar o **risco total (variância)**;
     - Considerar restrições ESG (por exemplo: peso mínimo em empresas do ISE).
 
     ---
-    ### 🧮 Formulação:
+    ### Formulação:
     $$
     \min_{w} \; w^T \Sigma w \quad \text{sujeito a:} \quad
     \sum w_i = 1, \; E(R_p) \ge R_{min}, \; w_i \ge 0
