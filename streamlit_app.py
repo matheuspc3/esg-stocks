@@ -3,7 +3,7 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import altair as alt
-
+import openpyxl as px
 # ======================================
 # CONFIGURAÇÕES GERAIS
 # ======================================
@@ -29,7 +29,7 @@ if page == "Introdução":
     O presente projeto tem como objetivo o **desenvolvimento de uma Carteira ESG (Environmental, Social and Governance)**,
     voltada à análise de desempenho de empresas com **alto comprometimento socioambiental**.
 
-    ---
+    --- 
     ### 💡 O que é ESG?
     O termo **ESG** (do inglês *Environmental, Social and Governance*) refere-se a três pilares principais que avaliam o impacto e a sustentabilidade de uma empresa:
     - **E – Ambiental:** gestão de recursos naturais, emissão de carbono, políticas de sustentabilidade;
@@ -41,6 +41,8 @@ if page == "Introdução":
     O mercado financeiro moderno demanda **investimentos mais responsáveis e sustentáveis**.  
     Esta carteira permite visualizar, comparar e analisar empresas listadas no **Índice de Sustentabilidade Empresarial (ISE B3)**,
     identificando aquelas que combinam **retorno financeiro** com **impacto positivo**.
+                
+    [Artigo base do trabalho](https://drive.google.com/file/d/1ioDajfIz_cGj8WEVl5o9Ksmvf-hi9Cxm/view?usp=sharing)
     """)
 
 # ======================================
@@ -72,14 +74,14 @@ elif page == "Fundamentações Teóricas":
     $$
 
     Onde:
-    - \( w_i \): peso do ativo *i* na carteira  
-    - \( E(R_i) \): retorno esperado do ativo *i*  
-    - \( \sigma_{ij} \): covariância entre os ativos *i* e *j*
-
+    - **wᵢ**: peso do ativo *i* na carteira  
+    - **E(Rᵢ)**: retorno esperado do ativo *i*  
+    - **σᵢⱼ**: covariância entre os ativos *i* e *j*  
     ---
     A fundamentação matemática e estatística é essencial para entender **como estruturar uma carteira eficiente** que equilibra **retorno financeiro e sustentabilidade**.
     """)
 
+    
 # ======================================
 # PÁGINA 3 - ISE (ÍNDICE DE SUSTENTABILIDADE EMPRESARIAL)
 # ======================================
@@ -87,7 +89,10 @@ elif page == "ISE":
     st.title("🏛️ Índice de Sustentabilidade Empresarial (ISE B3)")
     st.markdown("""
     O **ISE B3** é um índice da **Bolsa de Valores do Brasil (B3)** que reúne empresas com **as melhores práticas ESG**.
+    O Score ISE B3 é utilizado como critério de seleção das empresas integrantes da carteira e como base para ponderação dos ativos que a comporão. 
+    Seu valor é calculado pela aplicação do Fator Qualitativo (FQ) sobre o Score Base (somatória dos pontos obtidos na avaliação qualitativa, por meio do questionário ISE B3 e do Score CDP Climate Change).
 
+    A presença no ISE indica **maturidade em sustentabilidade corporativa** e **resiliência a riscos socioambientais**.
     ---
     ### 📊 Objetivo
     O índice busca **refletir o desempenho médio das ações** de empresas comprometidas com:
@@ -106,18 +111,34 @@ elif page == "ISE":
 
     ---
     ### 💼 Exemplos de empresas integrantes (2025)
-    - **BBAS3.SA** – Banco do Brasil  
-    - **SUZB3.SA** – Suzano  
-    - **NTCO3.SA** – Natura  
+    - **PSSA3.SA** – Porto Seguro  
+    - **SBSP3.SA** – Sabesp  
+    - **SAPR4.SA** – Sanepar (preferencial)  
+    - **ODPV3.SA** – Odontoprev  
+    - **UGPA3.SA** – Ultrapar  
     - **EGIE3.SA** – Engie Brasil  
-    - **CSAN3.SA** – Cosan  
+    - **ITUB4.SA** – Itaú Unibanco (preferencial)  
+    - **SUZB3.SA** – Suzano  
+    - **RADL3.SA** – Raia Drogasil  
+    - **BBAS3.SA** – Banco do Brasil  
+
 
     ---
-    A presença no ISE indica **maturidade em sustentabilidade corporativa** e **resiliência a riscos socioambientais**.
+    *Score ISE - B3 (2024)*
     """)
+    df = pd.read_csv('ise2 - Página1.csv')
+   
+    st.dataframe(df)    
+    st.markdown("""
+    ---
+    *Dimensões*
+    """)
+    df2 = pd.read_csv('dimensoes.csv')
+    st.dataframe(df2)
+
 
 # ======================================
-# PÁGINA 4 - CARTEIRA (CÓDIGO ORIGINAL)
+# PÁGINA 4 - CARTEIRA 
 # ======================================
 elif page == "Carteira":
     # -*- coding: utf-8 -*-
@@ -134,7 +155,7 @@ elif page == "Carteira":
 
     """
     # :material/query_stats: Projeto ESG - Carteira de Ações
-    Compare facilmente o desempenho de ações dentro de um mesmo grupo de pares.
+    Monte sua carteira ESG e compare facilmente seu desempenho.
     """
 
     ""  # Add some space.
@@ -142,33 +163,23 @@ elif page == "Carteira":
     cols = st.columns([1, 3])  # Will declare right cell later to avoid showing it when no data.
 
     STOCKS = [
-        "BBAS3.SA",  # Banco do Brasil
-        "BRKM5.SA",  # Braskem
-        "BPAC11.SA",  # BTG Pactual
-        "CAML3.SA",  # Camil
-        "AESB3.SA",  # AES Brasil
-        "BBDC4.SA",  # Bradesco
-        "BRFS3.SA",  # BRF
-        "CCRO3.SA",  # CCR
-        "CMIG4.SA",  # Cemig
-        "CIEL3.SA",  # Cielo
-        "CPLE6.SA",  # Copel
-        "CSAN3.SA",  # Cosan
-        "CPFE3.SA",  # CPFL Energia
+        "PSSA3.SA",  # Porto Seguro
+        "SBSP3.SA",  # Sabesp
+        "SAPR4.SA",  # Sanepar (preferencial)
+        "ODPV3.SA",  # Odontoprev
+        "UGPA3.SA",  # Ultrapar
         "EGIE3.SA",  # Engie Brasil
-        "FLRY3.SA",  # Fleury
-        "ASAI3.SA",  # Assaí (Sendas Distribuidora)
-        "MRVE3.SA",  # MRV Engenharia
+        "ITUB4.SA",  # Itaú Unibanco (preferencial)
         "SUZB3.SA",  # Suzano
-        "PETR4.SA"   # Petrobras (frequentemente listada no ISE)
+        "RADL3.SA",  # Raia Drogasil
+        "BBAS3.SA"   # Banco do Brasil
     ]
 
+
     DEFAULT_STOCKS = [
-        "BBAS3.SA",  # Banco do Brasil – referência em governança, inclusão e transparência
-        "SUZB3.SA",  # Suzano – líder global em celulose com práticas ambientais avançadas
-        "PETR4.SA",  # Natura – pioneira em sustentabilidade e impacto socioambiental positivo
-        "EGIE3.SA",  # Engie Brasil – forte em energia renovável e eficiência energética
-        "CSAN3.SA"
+        "PSSA3.SA",  # Porto Seguro
+        "SBSP3.SA",  # Sabesp
+        "SAPR4.SA",  # Sanepar (preferencial)
     ]
 
     def stocks_to_str(stocks):
@@ -214,7 +225,7 @@ elif page == "Carteira":
     with top_left_cell:
         # Buttons for picking time horizon
         horizon = st.pills(
-            "Horizonte de Tempo",
+            "Escolha o Marco Temporal",
             options=list(horizon_map.keys()),
             default="6 Mês",
         )
@@ -229,7 +240,7 @@ elif page == "Carteira":
         st.query_params.pop("stocks", None)
 
     if not tickers:
-        top_left_cell.info("Selecione alguns ativos para comparar", icon=":material/info:")
+        top_left_cell.info("Selecione alguns ativos para montar sua carteira ESG", icon=":material/info:")
         st.stop()
 
     right_cell = cols[1].container(
@@ -302,13 +313,12 @@ elif page == "Carteira":
         )
 
     """
-    ## Comparativo Individual vs Média do Grupo
-    Na análise abaixo, a **“média do grupo de pares”** ao avaliar um ativo X
-    sempre exclui o próprio ativo X.
+    ## Comparativo Individual vs Média da Carteira
+    Na análise abaixo, o Ativo comparado e retirado da comparação da carteira.
     """
 
     if len(tickers) <= 1:
-        st.warning("Escolha 2 ou mais ativos para comparação.")
+        st.warning("Escolha 2 ou mais ativos para montar sua carteira.")
         st.stop()
 
     NUM_COLS = 4
@@ -324,7 +334,7 @@ elif page == "Carteira":
             {
                 "Date": normalized.index,
                 ticker: normalized[ticker],
-                "Média dos Pares": peer_avg,
+                "Média da Carteira ESG": peer_avg,
             }
         ).melt(id_vars=["Date"], var_name="Series", value_name="Price")
 
@@ -336,12 +346,12 @@ elif page == "Carteira":
                 alt.Y("Price:Q").scale(zero=False),
                 alt.Color(
                     "Series:N",
-                    scale=alt.Scale(domain=[ticker, "Média dos Pares"], range=["red", "gray"]),
+                    scale=alt.Scale(domain=[ticker, "Média da Carteira ESG"], range=["red", "gray"]),
                     legend=alt.Legend(orient="bottom"),
                 ),
                 alt.Tooltip(["Date", "Series", "Price"]),
             )
-            .properties(title=f"{ticker} vs Média dos Pares", height=300)
+            .properties(title=f"{ticker} vs Média da Carteira ESG", height=300)
         )
 
         cell = cols[(i * 2) % NUM_COLS].container(border=True)
@@ -363,7 +373,7 @@ elif page == "Carteira":
                 alt.X("Date:T"),
                 alt.Y("Delta:Q").scale(zero=False),
             )
-            .properties(title=f"{ticker} menos Média dos Pares", height=300)
+            .properties(title=f"Retorno({ticker}) - Retorno(Carteira ESG)", height=300)
         )
 
         cell = cols[(i * 2 + 1) % NUM_COLS].container(border=True)
