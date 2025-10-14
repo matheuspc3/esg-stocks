@@ -20,9 +20,9 @@ page = st.sidebar.radio(
     ["Eixos Teóricos da Pesquisa", "Novo Mercado"," ISE", "Análise Fundamentalista", "Carteira", "Otimização"],
 )
 
-# ======================================
-# PÁGINA 1 - INTRODUÇÃO
-# ======================================
+    # ======================================
+    # PÁGINA 1 - INTRODUÇÃO
+    # ======================================
 if page == "Eixos Teóricos da Pesquisa":
     st.title("Eixos Teóricos da Pesquisa")
     st.markdown("""
@@ -58,7 +58,7 @@ if page == "Eixos Teóricos da Pesquisa":
     ---
     **Referências**
         B3. (2024). Diretrizes do Novo Mercado. São Paulo: Brasil, Bolsa, Balcão.
-        B3. (2025a). Relatório Anual de Sustentabilidade. São Paulo: B3.
+        B3. (2025). Relatório Anual de Sustentabilidade. São Paulo: B3.
         CARVALHO, A. G. (2003). Governança Corporativa: O Papel dos Conselhos de Administração. São Paulo: Atlas.
         MARTINS, O. S.; PROCIAOY, J. L.; VERDI, R. (2009). Estrutura de Governança e Valor de Mercado. Revista de Administração.
         ONU BRASIL. (2025). Objetivos de Desenvolvimento Sustentável. Brasília: Organização das Nações Unidas.
@@ -67,121 +67,50 @@ if page == "Eixos Teóricos da Pesquisa":
     
     """)
 
-# ======================================
-# PÁGINA 2 - FUNDAMENTAÇÕES TEÓRICAS
-# ======================================
+    # ======================================
+    # PÁGINA 2 - NOVO MERCADO
+    # ======================================
 elif page == "Novo Mercado":
-    st.title("Fundamentações Teóricas")
+    st.title("Novo Mercado")
     st.markdown("""
-    A fundamentação teórica do projeto baseia-se em estudos sobre:
+    ### O Novo Mercado: A Nova Era da Governança Corporativa no Brasil
     
-    - **Finanças Sustentáveis** e o papel dos investimentos ESG no contexto global;
-    - **Análise Quantitativa** de ações com base em indicadores financeiros e extra-financeiros;
-    - **Teoria Moderna de Portfólios (Markowitz, 1952)** e otimização baseada em risco-retorno;
-    - **Indicadores de Sustentabilidade** e modelos de governança corporativa.
-
+    O **Novo Mercado** é o segmento de listagem da **B3 – Brasil, Bolsa, Balcão**, criado para reunir as empresas com **os mais altos padrões de governança corporativa** do país.  
+    Ele surgiu com um propósito claro: **aumentar a transparência, proteger os investidores e fortalecer a confiança no mercado de capitais brasileiro**.
+    
+    No Novo Mercado, as empresas **assumem compromissos mais rigorosos** do que os exigidos por lei. Isso inclui:
+    - Emitir apenas ações ordinárias (com direito a voto);  
+    - Manter **conselhos de administração com membros independentes**;  
+    - Realizar **auditorias externas e independentes**;  
+    - E divulgar **informações financeiras e socioambientais com alto grau de transparência**.  
+    
+    Essas práticas criam um ambiente mais seguro e previsível, tanto para as empresas quanto para os investidores, reduzindo riscos e aumentando a credibilidade do mercado (B3, 2024).
+    
+    Estudos mostram que companhias listadas no Novo Mercado costumam apresentar **melhor desempenho financeiro**, **maior liquidez** e **menor volatilidade** das ações (Santos & Pedreira, 2004; Martins et al., 2006).  
+    Esses resultados estão diretamente ligados a três indicadores fundamentais de valor corporativo:
+    
+    - **ROA (Return on Assets)**: mede a eficiência da empresa em gerar lucro a partir de seus ativos. Empresas do Novo Mercado, com gestão mais transparente e eficiente, costumam apresentar **ROA mais elevado**, refletindo maior rentabilidade e melhor uso de recursos (Procianoy & Verdi, 2009).  
+    - **VPL (Valor Presente Líquido)**: representa o valor atual dos fluxos de caixa futuros da empresa. A boa governança reduz riscos e custos de capital, o que **aumenta o VPL**, indicando que o negócio gera valor sustentável ao longo do tempo (Costa, 2018; Machado, 2020).  
+    - **Q de Tobin**: compara o valor de mercado da empresa com o custo de reposição de seus ativos. Quando o Q de Tobin é maior que 1, significa que o mercado reconhece **um valor superior ao contábil**, geralmente consequência de práticas sólidas de governança e desempenho ESG (Silveira & Barros, 2019).  
+    
+    Esses indicadores mostram, de forma objetiva, que **boas práticas de governança corporativa criam valor real para os acionistas**.  
+    Empresas do Novo Mercado, ao combinarem governança avançada e responsabilidade socioambiental, conseguem equilibrar **rentabilidade, solidez e impacto positivo**.
+    
+    Outro ponto importante é que o Novo Mercado **anda lado a lado com as práticas ESG** – sigla para *Environmental, Social and Governance*.  
+    Hoje, **quase 80% das empresas que compõem o Índice de Sustentabilidade Empresarial (ISE B3)** também fazem parte do Novo Mercado (Reis, 2024).  
+    Isso demonstra que **transparência, sustentabilidade e valor econômico** caminham juntos, reforçando a importância de unir propósito e desempenho.
+    
+    Mais do que um selo de qualidade, o Novo Mercado é um **compromisso com o futuro**.  
+    Ao unir **ética, sustentabilidade e desempenho financeiro**, ele coloca o Brasil entre os países que tratam a governança corporativa como um pilar essencial para o crescimento econômico sustentável.
+    
     ---
-    ### Fórmulas em LaTeX
-
-    Exemplo da fórmula do **retorno esperado da carteira**:
-
-    $$
-    E(R_p) = \sum_{i=1}^{n} w_i E(R_i)
-    $$
-
-    E o **risco da carteira (variância)**:
-
-    $$
-    \sigma_p^2 = \sum_{i=1}^{n} \sum_{j=1}^{n} w_i w_j \sigma_{ij}
-    $$
-
-    Onde:
-    - **wᵢ**: peso do ativo *i* na carteira  
-    - **E(Rᵢ)**: retorno esperado do ativo *i*  
-    - **σᵢⱼ**: covariância entre os ativos *i* e *j*  
-    ---
-    A fundamentação matemática e estatística é essencial para entender **como estruturar uma carteira eficiente** que equilibra **retorno financeiro e sustentabilidade**.
+    
+    **Fontes:**  
+    B3 (2024, 2025); Carvalho (2003); Procianoy & Verdi (2009); Santos & Pedreira (2004); Martins et al. (2006); Reis (2024).
     """)
-
-elif page == " Análise Fundamentalista":
-    st.markdown("""
-    ### Análise Fundamentalista de Empresas (2025)
-    Selecione um ticker abaixo para visualizar os principais indicadores financeiros e comentários sobre seu desempenho.
-    """)
-
-    # Lista de tickers
-    STOCKS = [ 
-        "PSSA3.SA",  # Porto Seguro
-        "SBSP3.SA",  # Sabesp
-        "SAPR4.SA",  # Sanepar
-        "ODPV3.SA",  # Odontoprev
-        "UGPA3.SA",  # Ultrapar
-        "EGIE3.SA",  # Engie Brasil
-        "ITUB4.SA",  # Itaú Unibanco
-        "SUZB3.SA",  # Suzano
-        "RADL3.SA",  # Raia Drogasil
-        "BBAS3.SA"   # Banco do Brasil
-    ]
-
-    # Dropdown de seleção
-    ticker = st.selectbox("Selecione uma empresa:", STOCKS)
-
-    # Obtém os dados
-    data = yf.Ticker(ticker)
-
-    st.subheader(f"📊 {data.info.get('shortName', ticker)}")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.markdown("#### Indicadores Financeiros")
-        fundamentals = {
-            "Setor": data.info.get("sector", "N/A"),
-            "Valor de Mercado (R$)": f"{data.info.get('marketCap', 0)/1e9:.2f} Bi",
-            "P/L": round(data.info.get("trailingPE", 0), 2),
-            "P/VP": round(data.info.get("priceToBook", 0), 2),
-            "ROE (%)": round(data.info.get("returnOnEquity", 0) * 100, 2) if data.info.get("returnOnEquity") else "N/A",
-            "Dividend Yield (%)": round(data.info.get("dividendYield", 0) * 100, 2) if data.info.get("dividendYield") else "N/A",
-        }
-        st.table(pd.DataFrame(fundamentals.items(), columns=["Indicador", "Valor"]))
-
-    with col2:
-        st.markdown("#### 🧠 Interpretação Fundamentalista")
-        pe = data.info.get("trailingPE", None)
-        roe = data.info.get("returnOnEquity", None)
-        dy = data.info.get("dividendYield", None)
-
-        insights = []
-
-        if pe and roe:
-            if pe < 10 and roe > 0.15:
-                insights.append("**Valuation descontado**: P/L baixo e ROE alto sugerem empresa eficiente e barata.\n")
-            elif pe > 20 and roe < 0.10:
-                insights.append("**Valuation elevado**: P/L alto e ROE baixo indicam possível sobreprecificação.\n")
-            else:
-                insights.append("P/L e ROE em linha com o mercado.\n")
-        else:
-            insights.append("Dados de P/L ou ROE indisponíveis.\n")
-
-        if dy and dy > 0.04:
-            insights.append("**Bom pagador de dividendos**: Dividend Yield acima de 4%.\n")
-        else:
-            insights.append("Dividend Yield modesto ou não informado.\n")
-
-        insights.append("**Histórico de crescimento**: verifique evolução do patrimônio líquido e lucros no DRE.\n")
-
-        st.markdown("\n".join(insights))
-
-    # Mostra histórico de preços
-    st.markdown("#### Histórico de Preço (5 anos)")
-    hist = data.history(period="5y")
-    st.line_chart(hist["Close"])
-
-    st.caption("Fonte: Yahoo Finance — Dados sujeitos a atualização.")
-
-# ======================================
-# PÁGINA 3 - ISE (ÍNDICE DE SUSTENTABILIDADE EMPRESARIAL)
-# ======================================
+    # ======================================
+    # PÁGINA 3 - ISE (ÍNDICE DE SUSTENTABILIDADE EMPRESARIAL)
+    # ======================================
 elif page == "ISE":
     st.title("Índice de Sustentabilidade Empresarial (ISE B3)")
     st.markdown("""
@@ -233,10 +162,88 @@ elif page == "ISE":
     df2 = pd.read_csv('dimensoes.csv')
     st.dataframe(df2)
 
+    # ======================================
+    # PÁGINA 4 - ANÁLISE FUNDAMENTALISTA 
+    # ======================================
+elif page == " Análise Fundamentalista":
+    st.markdown("""
+    ### Análise Fundamentalista de Empresas (2025)
+    Selecione um ticker abaixo para visualizar os principais indicadores financeiros e comentários sobre seu desempenho.
+    """)
 
-# ======================================
-# PÁGINA 4 - CARTEIRA 
-# ======================================
+    # Lista de tickers
+    STOCKS = [ 
+        "PSSA3.SA",  # Porto Seguro
+        "SBSP3.SA",  # Sabesp
+        "SAPR4.SA",  # Sanepar
+        "ODPV3.SA",  # Odontoprev
+        "UGPA3.SA",  # Ultrapar
+        "EGIE3.SA",  # Engie Brasil
+        "ITUB4.SA",  # Itaú Unibanco
+        "SUZB3.SA",  # Suzano
+        "RADL3.SA",  # Raia Drogasil
+        "BBAS3.SA"   # Banco do Brasil
+    ]
+
+    # Dropdown de seleção
+    ticker = st.selectbox("Selecione uma empresa:", STOCKS)
+
+    # Obtém os dados
+    data = yf.Ticker(ticker)
+
+    st.subheader(f"📊 {data.info.get('shortName', ticker)}")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("#### Indicadores Financeiros")
+        fundamentals = {
+            "Setor": data.info.get("sector", "N/A"),
+            "Valor de Mercado (R$)": f"{data.info.get('marketCap', 0)/1e9:.2f} Bi",
+            "P/L": round(data.info.get("trailingPE", 0), 2),
+            "P/VP": round(data.info.get("priceToBook", 0), 2),
+            "ROE (%)": round(data.info.get("returnOnEquity", 0) * 100, 2) if data.info.get("returnOnEquity") else "N/A",
+            "Dividend Yield (%)": round(data.info.get("dividendYield", 0) * 100, 2) if data.info.get("dividendYield") else "N/A",
+        }
+        st.table(pd.DataFrame(fundamentals.items(), columns=["Indicador", "Valor"]))
+
+    with col2:
+        st.markdown("####  Interpretação Fundamentalista")
+        pe = data.info.get("trailingPE", None)
+        roe = data.info.get("returnOnEquity", None)
+        dy = data.info.get("dividendYield", None)
+
+        insights = []
+
+        if pe and roe:
+            if pe < 10 and roe > 0.15:
+                insights.append("**Valuation descontado**: P/L baixo e ROE alto sugerem empresa eficiente e barata.\n")
+            elif pe > 20 and roe < 0.10:
+                insights.append("**Valuation elevado**: P/L alto e ROE baixo indicam possível sobreprecificação.\n")
+            else:
+                insights.append("P/L e ROE em linha com o mercado.\n")
+        else:
+            insights.append("Dados de P/L ou ROE indisponíveis.\n")
+
+        if dy and dy > 0.04:
+            insights.append("**Bom pagador de dividendos**: Dividend Yield acima de 4%.\n")
+        else:
+            insights.append("Dividend Yield modesto ou não informado.\n")
+
+        insights.append("**Histórico de crescimento**: verifique evolução do patrimônio líquido e lucros no DRE.\n")
+
+        st.markdown("\n".join(insights))
+
+    # Mostra histórico de preços
+    st.markdown("#### Histórico de Preço (5 anos)")
+    hist = data.history(period="5y")
+    st.line_chart(hist["Close"])
+
+    st.caption("Fonte: Yahoo Finance — Dados sujeitos a atualização.")
+
+    # ======================================
+    # PÁGINA 5 - CARTEIRA 
+    # ======================================
 elif page == "Carteira":
     # -*- coding: utf-8 -*-
     import streamlit as st
@@ -483,9 +490,9 @@ elif page == "Carteira":
     data
 
 
-# ======================================
-# PÁGINA 5 - OTIMIZAÇÃO
-# ======================================
+    # ======================================
+    # PÁGINA 6 - OTIMIZAÇÃO
+    # ======================================
 elif page == "Otimização":
     st.title("Otimização da Carteira ESG")
     st.markdown("""
