@@ -573,7 +573,7 @@ elif page == "Carteira":
     # PÁGINA 6 - OTIMIZAÇÃO
     # ======================================
 elif page == "Otimização":
-
+    import matplotlib.pyplot as plt
     st.title("Otimização da Carteira ESG via Simulação de Monte Carlo")
 
     st.markdown("""
