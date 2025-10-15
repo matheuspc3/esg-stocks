@@ -756,31 +756,46 @@ elif page == "Otimização":
         "Sharpe": results[2, :]
     })
 
-    chart = (
-        alt.Chart(df_plot)
-        .mark_circle(size=60, opacity=0.6)
-        .encode(
-            x=alt.X("Risco", title="Risco (Desvio-Padrão Anualizado)"),
-            y=alt.Y("Retorno", title="Retorno Esperado Anual (%)"),
-            color=alt.Color("Sharpe", scale=alt.Scale(scheme="viridis"), title="Sharpe Ratio"),
-            tooltip=[
-                alt.Tooltip("Risco", format=".2%"),
-                alt.Tooltip("Retorno", format=".2%"),
-                alt.Tooltip("Sharpe", format=".2f")
-            ]
-        )
-        .interactive()
-        .properties(width=700, height=400)
+    import plotly.express as px
+
+    fig = px.scatter(
+        df_plot,
+        x="Risco",
+        y="Retorno",
+        color="Sharpe",
+        color_continuous_scale="Viridis",
+        title="Fronteira de Eficiência ESG – Simulação Monte Carlo",
+        labels={
+            "Risco": "Risco (Desvio-Padrão Anualizado)",
+            "Retorno": "Retorno Esperado Anual (%)",
+            "Sharpe": "Índice de Sharpe"
+        },
+        opacity=0.7
     )
 
-    best_point = pd.DataFrame({
-        "Risco": [max_sharpe_volatility],
-        "Retorno": [max_sharpe_return]
-    })
+    # Adiciona o ponto da carteira ótima (estrela vermelha)
+    fig.add_scatter(
+        x=[max_sharpe_volatility],
+        y=[max_sharpe_return],
+        mode="markers+text",
+        marker=dict(color="red", size=14, symbol="star"),
+        text=["Carteira Ótima"],
+        textposition="top center",
+        name="Carteira Ótima"
+    )
 
-    best_chart = alt.Chart(best_point).mark_point(shape="star", size=200, color="red").encode(x="Risco", y="Retorno")
+    # Ajusta o layout para o estilo Markowitz
+    fig.update_layout(
+        template="plotly_white",
+        coloraxis_colorbar=dict(title="Sharpe Ratio"),
+        title_font=dict(size=18, color="#1E3A8A"),
+        xaxis=dict(showgrid=True, gridcolor="LightGray", zeroline=False),
+        yaxis=dict(showgrid=True, gridcolor="LightGray", zeroline=False),
+        plot_bgcolor="#F9FAFB",
+        height=500
+    )
 
-    st.altair_chart(chart + best_chart, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True)
 
     # ==========================
     # Gráfico de Pizza (Altair)
