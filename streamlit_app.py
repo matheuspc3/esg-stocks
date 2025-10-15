@@ -3,7 +3,7 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import altair as alt
-#import openpyxl as px
+#import openpyxl as px # verificar se ainda é necessario 
 # ======================================
 # CONFIGURAÇÕES GERAIS
 # ======================================
@@ -125,11 +125,7 @@ elif page == "Novo Mercado":
     Mede a eficiência da empresa em gerar lucro a partir de seus ativos.  
     Empresas do Novo Mercado, com **gestão mais transparente e eficiente**, tendem a apresentar **ROA mais elevado**, refletindo melhor rentabilidade (Procianoy & Verdi, 2009).
 
-    2. **VPL (Valor Presente Líquido)**  
-    Representa o valor atual dos fluxos de caixa futuros da empresa.  
-    Uma boa governança reduz riscos e custos de capital, o que **aumenta o VPL**, indicando **valor sustentável no longo prazo** (Costa, 2018; Machado, 2020).
-
-    3. **Q de Tobin**  
+    2. **Q de Tobin**  
     Compara o valor de mercado da empresa com o custo de reposição de seus ativos.  
     Quando o Q de Tobin é **maior que 1**, o mercado reconhece **valor superior ao contábil**, resultado de **boas práticas de governança e desempenho ESG** (Silveira & Barros, 2019).
 
