@@ -573,7 +573,8 @@ elif page == "Carteira":
     # PÁGINA 6 - OTIMIZAÇÃO
     # ======================================
 elif page == "Otimização":
-    import matplotlib.pyplot as plt
+    import altair as alt
+
     st.title("Otimização da Carteira ESG via Simulação de Monte Carlo")
 
     st.markdown("""
@@ -762,8 +763,6 @@ elif page == "Otimização":
     # ==========================
     # Fronteira de Portfólios
     # ==========================
-        import altair as alt
-
     st.markdown("### Fronteira de Portfólios Simulados")
 
     df_plot = pd.DataFrame({
@@ -809,7 +808,19 @@ elif page == "Otimização":
     st.altair_chart(chart + best_chart, use_container_width=True)
 
     # ==========================
-    # Gráfico de pizza (Altair)
+    # Pesos da Carteira Ótima
+    # ==========================
+    st.markdown("### Pesos Ótimos por Ativo")
+
+    weights_df = pd.DataFrame({
+        "Ativo": selected,
+        "Peso (%)": np.round(opt_weights * 100, 2)
+    }).sort_values("Peso (%)", ascending=False)
+
+    st.dataframe(weights_df, use_container_width=True)
+
+    # ==========================
+    # Gráfico de pizza
     # ==========================
     st.markdown("### Distribuição da Carteira Ótima ESG")
 
@@ -834,6 +845,13 @@ elif page == "Otimização":
 
     st.altair_chart(pie_chart, use_container_width=True)
 
+    # ==========================
+    # Conclusão interpretativa
+    # ==========================
+    st.success(f"""
+    Foram simuladas {num_portfolios:,} carteiras aleatórias.  
+    A **carteira ótima** (estrela vermelha) apresenta o **melhor índice de Sharpe**, equilibrando risco e retorno com base em dados reais do Yahoo Finance.
+    """)
 
 
 
