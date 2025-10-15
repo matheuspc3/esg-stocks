@@ -71,8 +71,14 @@ if page == "Eixos Teóricos da Pesquisa":
     > **Resultado esperado:** melhor desempenho financeiro e reputacional  
 
     ---
-
+    *Comparativo dos Segmentos de Governança Corporativa da B3*
+    """)
+    df3 = pd.read_csv('novo-mercado.csv')
+    st.dataframe(df3)
+    st.markdown("""
+    ---
      **Artigo base:**  
+    
     [ESG e Desempenho Financeiro no Mercado Brasileiro](https://drive.google.com/file/d/1D3O7eqIXWSuidSOqf2PPtzdCXIYkoY0W/view?usp=sharing)
 
     ---
