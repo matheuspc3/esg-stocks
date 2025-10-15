@@ -603,7 +603,7 @@ elif page == "Otimização":
     
     period = st.selectbox("Período de análise:", ["1y", "3y", "5y"], index=1)
 
-    st.markdown("Carregando dados do Yahoo Finance...")
+    st.markdown("Carregando dados...")
     data = yf.download(selected, period=period)
 
     # Corrigir caso falte "Adj Close"
@@ -762,47 +762,78 @@ elif page == "Otimização":
     # ==========================
     # Fronteira de Portfólios
     # ==========================
+        import altair as alt
+
     st.markdown("### Fronteira de Portfólios Simulados")
 
-    fig, ax = plt.subplots(figsize=(9, 5))
-    scatter = ax.scatter(results[1, :], results[0, :],
-                         c=results[2, :], cmap="viridis", alpha=0.6)
-    ax.scatter(max_sharpe_volatility, max_sharpe_return,
-               marker="*", color="red", s=250, label="Carteira Ótima")
-    ax.set_xlabel("Risco (Desvio-Padrão Anualizado)")
-    ax.set_ylabel("Retorno Esperado Anual (%)")
-    ax.set_title("Simulação Monte Carlo – Fronteira de Eficiência ESG")
-    ax.legend()
-    plt.colorbar(scatter, label="Sharpe Ratio")
-    st.pyplot(fig, width=700)
+    df_plot = pd.DataFrame({
+        "Risco": results[1, :],
+        "Retorno": results[0, :],
+        "Sharpe": results[2, :]
+    })
+
+    chart = (
+        alt.Chart(df_plot)
+        .mark_circle(size=60, opacity=0.6)
+        .encode(
+            x=alt.X("Risco", title="Risco (Desvio-Padrão Anualizado)"),
+            y=alt.Y("Retorno", title="Retorno Esperado Anual (%)"),
+            color=alt.Color("Sharpe", scale=alt.Scale(scheme="viridis"), title="Sharpe Ratio"),
+            tooltip=[
+                alt.Tooltip("Risco", format=".2%"),
+                alt.Tooltip("Retorno", format=".2%"),
+                alt.Tooltip("Sharpe", format=".2f")
+            ]
+        )
+        .interactive()
+        .properties(
+            width=700,
+            height=400,
+            title="Simulação Monte Carlo – Fronteira de Eficiência ESG"
+        )
+    )
+
+    # Ponto da carteira ótima (estrela vermelha)
+    best_point = pd.DataFrame({
+        "Risco": [max_sharpe_volatility],
+        "Retorno": [max_sharpe_return],
+        "Sharpe": [sharpe_value]
+    })
+
+    best_chart = (
+        alt.Chart(best_point)
+        .mark_point(shape="star", size=200, color="red")
+        .encode(x="Risco", y="Retorno")
+    )
+
+    st.altair_chart(chart + best_chart, use_container_width=True)
 
     # ==========================
-    # Pesos da Carteira Ótima
+    # Gráfico de pizza (Altair)
     # ==========================
-    st.markdown("### Pesos Ótimos por Ativo")
+    st.markdown("### Distribuição da Carteira Ótima ESG")
 
     weights_df = pd.DataFrame({
         "Ativo": selected,
-        "Peso (%)": np.round(opt_weights * 100, 2)
-    }).sort_values("Peso (%)", ascending=False)
+        "Peso": opt_weights
+    }).sort_values("Peso", ascending=False)
 
-    st.dataframe(weights_df, use_container_width=True)
+    pie_chart = (
+        alt.Chart(weights_df)
+        .mark_arc(innerRadius=60)
+        .encode(
+            theta=alt.Theta("Peso:Q", stack=True),
+            color=alt.Color("Ativo:N", legend=alt.Legend(title="Ativos")),
+            tooltip=[
+                alt.Tooltip("Ativo:N", title="Ativo"),
+                alt.Tooltip("Peso:Q", title="Peso (%)", format=".1%")
+            ]
+        )
+        .properties(width=500, height=400)
+    )
 
-    # ==========================
-    # Gráfico de pizza
-    # ==========================
-    fig2, ax2 = plt.subplots()
-    ax2.pie(opt_weights, labels=weights_df["Ativo"], autopct="%1.1f%%", startangle=90)
-    ax2.set_title("Distribuição da Carteira Ótima ESG")
-    st.pyplot(fig2, width=500)
+    st.altair_chart(pie_chart, use_container_width=True)
 
-    # ==========================
-    # Conclusão interpretativa
-    # ==========================
-    st.success(f"""
-    Foram simuladas {num_portfolios:,} carteiras aleatórias.  
-    A **carteira ótima** (estrela vermelha) apresenta o **melhor índice de Sharpe**, equilibrando risco e retorno com base em dados reais do Yahoo Finance.
-    """)
 
 
 
