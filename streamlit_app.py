@@ -3,6 +3,9 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import altair as alt
+import matplotlib.pyplot as plt
+import numpy as np
+
 #import openpyxl as px # verificar se ainda é necessario 
 # ======================================
 # CONFIGURAÇÕES GERAIS
@@ -119,7 +122,7 @@ elif page == "Novo Mercado":
     - **Maior liquidez das ações**, e  
     - **Menor volatilidade** (Santos & Pedreira, 2004; Martins et al., 2006).  
 
-    Esses resultados estão diretamente ligados a **três indicadores fundamentais de valor corporativo**:
+    Esses resultados estão diretamente ligados a **dois indicadores fundamentais de valor corporativo**:
 
     1. **ROA (Return on Assets)**  
     Mede a eficiência da empresa em gerar lucro a partir de seus ativos.  
@@ -129,6 +132,7 @@ elif page == "Novo Mercado":
     Compara o valor de mercado da empresa com o custo de reposição de seus ativos.  
     Quando o Q de Tobin é **maior que 1**, o mercado reconhece **valor superior ao contábil**, resultado de **boas práticas de governança e desempenho ESG** (Silveira & Barros, 2019).
 
+    3. **Volume de Ação**: que mede a quantidade de ações negociadas, que é um indicador de liquidez (Correia, 2014; Bastos et al, 2020)
     ---
 
     ###  Conexão entre Novo Mercado e ESG  
@@ -326,11 +330,6 @@ elif page == "Análise Fundamentalista":
     # ======================================
 elif page == "Carteira":
     # -*- coding: utf-8 -*-
-    import streamlit as st
-    import yfinance as yf
-    import pandas as pd
-    import altair as alt
-
     st.set_page_config(
         page_title="Carteira ESG",
         page_icon="🐺",
@@ -574,32 +573,236 @@ elif page == "Carteira":
     # PÁGINA 6 - OTIMIZAÇÃO
     # ======================================
 elif page == "Otimização":
-    st.title("Otimização da Carteira ESG")
+
+    st.title("Otimização da Carteira ESG via Simulação de Monte Carlo")
+
     st.markdown("""
-    Nesta seção, será implementado o **modelo de otimização da carteira ESG**, com base na **Teoria Moderna de Portfólios**.
+    Nesta seção, aplicamos o **método de Monte Carlo** diretamente aos preços históricos das ações ESG.  
+    Geramos milhares de carteiras aleatórias para encontrar a **combinação com melhor relação risco/retorno** — medida pelo **Índice de Sharpe**.
 
     ---
-    ### Objetivo:
-    - Maximizar o **retorno esperado**;
-    - Minimizar o **risco total (variância)**;
-    - Considerar restrições ESG (por exemplo: peso mínimo em empresas do ISE).
-
-    ---
-    ### Formulação:
-    $$
-    \min_{w} \; w^T \Sigma w \quad \text{sujeito a:} \quad
-    \sum w_i = 1, \; E(R_p) \ge R_{min}, \; w_i \ge 0
-    $$
-
-    Onde:
-    - \( \Sigma \): matriz de covariância dos retornos
-    - \( w_i \): peso de cada ativo
-    - \( E(R_p) \): retorno esperado da carteira
-
-    ---
-    Em breve, essa página mostrará:
-    - fronteira eficiente,
-    - pesos ótimos,
-    - comparação com a carteira ESG atual.
     """)
+
+    # ==========================
+    # Seleção de ativos ESG
+    # ==========================
+    TICKERS = [
+        "PSSA3.SA", "SBSP3.SA", "SAPR4.SA", "ODPV3.SA", "UGPA3.SA",
+        "EGIE3.SA", "ITUB4.SA", "SUZB3.SA", "RADL3.SA", "BBAS3.SA"
+    ]
+
+    selected = st.multiselect(
+        "Selecione os ativos para otimização:",
+        options=TICKERS,
+        default=["PSSA3.SA", "SBSP3.SA", "SAPR4.SA"]
+    )
+
+    if len(selected) < 2:
+        st.warning("Selecione pelo menos dois ativos para simular a otimização.")
+        st.stop()
+    
+    period = st.selectbox("Período de análise:", ["1y", "3y", "5y"], index=1)
+
+    st.markdown("Carregando dados do Yahoo Finance...")
+    data = yf.download(selected, period=period)
+
+    # Corrigir caso falte "Adj Close"
+    if isinstance(data.columns, pd.MultiIndex):
+        if "Adj Close" in data.columns.get_level_values(0):
+            data = data["Adj Close"]
+        elif "Close" in data.columns.get_level_values(0):
+            data = data["Close"]
+    elif "Adj Close" in data.columns:
+        data = data["Adj Close"]
+    elif "Close" in data.columns:
+        data = data["Close"]
+    else:
+        st.error("Nenhuma coluna de preços ('Adj Close' ou 'Close') foi encontrada nos dados.")
+        st.stop()
+
+    data = data.dropna()
+
+    # ==========================
+    # Cálculo de retornos e covariância
+    # ==========================
+    returns = data.pct_change().dropna()
+    mean_returns = returns.mean()
+    cov_matrix = returns.cov()
+
+    # ==========================
+    # Simulação Monte Carlo
+    # ==========================
+    st.markdown("### Simulando carteiras...")
+
+    num_portfolios = st.slider("Número de carteiras simuladas:", 5000, 50000, 10000, step=5000)
+    rf = 0.1 / 100  # taxa livre de risco anual (ex: 0,1%)
+
+    results = np.zeros((3, num_portfolios))  # [retorno, risco, Sharpe]
+    weights_record = []
+
+    np.random.seed(42)
+    for i in range(num_portfolios):
+        weights = np.random.random(len(selected))
+        weights /= np.sum(weights)
+        weights_record.append(weights)
+
+        portfolio_return = np.sum(mean_returns * weights) * 252
+        portfolio_volatility = np.sqrt(np.dot(weights.T, np.dot(cov_matrix * 252, weights)))
+        sharpe_ratio = (portfolio_return - rf) / portfolio_volatility
+
+        results[0, i] = portfolio_return
+        results[1, i] = portfolio_volatility
+        results[2, i] = sharpe_ratio
+
+    # ==========================
+    # Identificação da carteira ótima
+    # ==========================
+    max_sharpe_idx = np.argmax(results[2])
+    max_sharpe_return = results[0, max_sharpe_idx]
+    max_sharpe_volatility = results[1, max_sharpe_idx]
+    opt_weights = weights_record[max_sharpe_idx]
+    sharpe_value = results[2, max_sharpe_idx]
+
+    # ==========================
+    # Métricas principais
+    # ==========================
+    # ==========================
+    # Métricas principais (versão com cards)
+    # ==========================
+    st.markdown("### Resultados da Carteira Ótima")
+
+    # Estilos CSS para os cards
+    st.markdown("""
+    <style>
+    .metric-card {  
+        background-color: #0b1636; 
+        border: 1px solid #c5d7ef;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+        transition: 0.3s;
+    }
+    .metric-card:hover {
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.15);
+    }
+    .metric-value {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #e7f0fa; /* azul escuro para contraste */
+    }
+    .metric-title {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #e7f0fa;
+    }
+    .metric-legend {
+        font-size: 1.1rem;
+        margin-top: 6px;
+    }
+    .green { color: #28a745; }
+    .orange { color: #e49b00; }
+    .red { color: #d9534f; }
+    .gray { color: #6c757d; }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Lógica de legendas dinâmicas
+    if max_sharpe_return > 0.15:
+        retorno_color, retorno_legend = "green", "Retorno alto"
+    elif max_sharpe_return > 0.08:
+        retorno_color, retorno_legend = "orange", "Retorno moderado"
+    else:
+        retorno_color, retorno_legend = "gray", "Retorno baixo"
+
+    if max_sharpe_volatility < 0.12:
+        risco_color, risco_legend = "green", "Risco baixo"
+    elif max_sharpe_volatility < 0.20:
+        risco_color, risco_legend = "orange", "Risco médio"
+    else:
+        risco_color, risco_legend = "red", "Risco alto"
+
+    if sharpe_value > 1.5:
+        sharpe_color, sharpe_legend = "green", "Ótimo equilíbrio"
+    elif sharpe_value > 1:
+        sharpe_color, sharpe_legend = "orange", "Equilíbrio bom"
+    else:
+        sharpe_color, sharpe_legend = "red", "Risco alto p/ retorno"
+
+    # Exibição dos cards
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-title">Retorno Esperado</div>
+            <div class="metric-value">{max_sharpe_return*100:.2f}%</div>
+            <div class="metric-legend {retorno_color}">{retorno_legend}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-title">Risco (Volatilidade)</div>
+            <div class="metric-value">{max_sharpe_volatility*100:.2f}%</div>
+            <div class="metric-legend {risco_color}">{risco_legend}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col3:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-title">Índice de Sharpe</div>
+            <div class="metric-value">{sharpe_value:.2f}</div>
+            <div class="metric-legend {sharpe_color}">{sharpe_legend}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+
+    # ==========================
+    # Fronteira de Portfólios
+    # ==========================
+    st.markdown("### Fronteira de Portfólios Simulados")
+
+    fig, ax = plt.subplots(figsize=(9, 5))
+    scatter = ax.scatter(results[1, :], results[0, :],
+                         c=results[2, :], cmap="viridis", alpha=0.6)
+    ax.scatter(max_sharpe_volatility, max_sharpe_return,
+               marker="*", color="red", s=250, label="Carteira Ótima")
+    ax.set_xlabel("Risco (Desvio-Padrão Anualizado)")
+    ax.set_ylabel("Retorno Esperado Anual (%)")
+    ax.set_title("Simulação Monte Carlo – Fronteira de Eficiência ESG")
+    ax.legend()
+    plt.colorbar(scatter, label="Sharpe Ratio")
+    st.pyplot(fig, width=700)
+
+    # ==========================
+    # Pesos da Carteira Ótima
+    # ==========================
+    st.markdown("### Pesos Ótimos por Ativo")
+
+    weights_df = pd.DataFrame({
+        "Ativo": selected,
+        "Peso (%)": np.round(opt_weights * 100, 2)
+    }).sort_values("Peso (%)", ascending=False)
+
+    st.dataframe(weights_df, use_container_width=True)
+
+    # ==========================
+    # Gráfico de pizza
+    # ==========================
+    fig2, ax2 = plt.subplots()
+    ax2.pie(opt_weights, labels=weights_df["Ativo"], autopct="%1.1f%%", startangle=90)
+    ax2.set_title("Distribuição da Carteira Ótima ESG")
+    st.pyplot(fig2, width=500)
+
+    # ==========================
+    # Conclusão interpretativa
+    # ==========================
+    st.success(f"""
+    Foram simuladas {num_portfolios:,} carteiras aleatórias.  
+    A **carteira ótima** (estrela vermelha) apresenta o **melhor índice de Sharpe**, equilibrando risco e retorno com base em dados reais do Yahoo Finance.
+    """)
+
+
 
