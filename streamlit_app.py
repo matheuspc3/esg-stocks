@@ -573,8 +573,7 @@ elif page == "Carteira":
     # PÁGINA 6 - OTIMIZAÇÃO
     # ======================================
 elif page == "Otimização":
-    import altair as alt
-
+    import matplotlib.pyplot as plt
     st.title("Otimização da Carteira ESG via Simulação de Monte Carlo")
 
     st.markdown("""
@@ -667,9 +666,7 @@ elif page == "Otimização":
     # ==========================
     # Métricas principais
     # ==========================
-    # ==========================
-    # Métricas principais (versão com cards)
-    # ==========================
+
     st.markdown("### Resultados da Carteira Ótima")
 
     # Estilos CSS para os cards
@@ -765,47 +762,17 @@ elif page == "Otimização":
     # ==========================
     st.markdown("### Fronteira de Portfólios Simulados")
 
-    df_plot = pd.DataFrame({
-        "Risco": results[1, :],
-        "Retorno": results[0, :],
-        "Sharpe": results[2, :]
-    })
-
-    chart = (
-        alt.Chart(df_plot)
-        .mark_circle(size=60, opacity=0.6)
-        .encode(
-            x=alt.X("Risco", title="Risco (Desvio-Padrão Anualizado)"),
-            y=alt.Y("Retorno", title="Retorno Esperado Anual (%)"),
-            color=alt.Color("Sharpe", scale=alt.Scale(scheme="viridis"), title="Sharpe Ratio"),
-            tooltip=[
-                alt.Tooltip("Risco", format=".2%"),
-                alt.Tooltip("Retorno", format=".2%"),
-                alt.Tooltip("Sharpe", format=".2f")
-            ]
-        )
-        .interactive()
-        .properties(
-            width=700,
-            height=400,
-            title="Simulação Monte Carlo – Fronteira de Eficiência ESG"
-        )
-    )
-
-    # Ponto da carteira ótima (estrela vermelha)
-    best_point = pd.DataFrame({
-        "Risco": [max_sharpe_volatility],
-        "Retorno": [max_sharpe_return],
-        "Sharpe": [sharpe_value]
-    })
-
-    best_chart = (
-        alt.Chart(best_point)
-        .mark_point(shape="star", size=200, color="red")
-        .encode(x="Risco", y="Retorno")
-    )
-
-    st.altair_chart(chart + best_chart, use_container_width=True)
+    fig, ax = plt.subplots(figsize=(9, 5))
+    scatter = ax.scatter(results[1, :], results[0, :],
+                         c=results[2, :], cmap="viridis", alpha=0.6)
+    ax.scatter(max_sharpe_volatility, max_sharpe_return,
+               marker="*", color="red", s=250, label="Carteira Ótima")
+    ax.set_xlabel("Risco (Desvio-Padrão Anualizado)")
+    ax.set_ylabel("Retorno Esperado Anual (%)")
+    ax.set_title("Simulação Monte Carlo – Fronteira de Eficiência ESG")
+    ax.legend()
+    plt.colorbar(scatter, label="Sharpe Ratio")
+    st.pyplot(fig, width=700)
 
     # ==========================
     # Pesos da Carteira Ótima
@@ -822,28 +789,10 @@ elif page == "Otimização":
     # ==========================
     # Gráfico de pizza
     # ==========================
-    st.markdown("### Distribuição da Carteira Ótima ESG")
-
-    weights_df = pd.DataFrame({
-        "Ativo": selected,
-        "Peso": opt_weights
-    }).sort_values("Peso", ascending=False)
-
-    pie_chart = (
-        alt.Chart(weights_df)
-        .mark_arc(innerRadius=60)
-        .encode(
-            theta=alt.Theta("Peso:Q", stack=True),
-            color=alt.Color("Ativo:N", legend=alt.Legend(title="Ativos")),
-            tooltip=[
-                alt.Tooltip("Ativo:N", title="Ativo"),
-                alt.Tooltip("Peso:Q", title="Peso (%)", format=".1%")
-            ]
-        )
-        .properties(width=500, height=400)
-    )
-
-    st.altair_chart(pie_chart, use_container_width=True)
+    fig2, ax2 = plt.subplots()
+    ax2.pie(opt_weights, labels=weights_df["Ativo"], autopct="%1.1f%%", startangle=90)
+    ax2.set_title("Distribuição da Carteira Ótima ESG")
+    st.pyplot(fig2, width=500)
 
     # ==========================
     # Conclusão interpretativa
