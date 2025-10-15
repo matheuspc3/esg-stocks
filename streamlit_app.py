@@ -573,13 +573,13 @@ elif page == "Carteira":
     # PÁGINA 6 - OTIMIZAÇÃO
     # ======================================
 elif page == "Otimização":
-    import matplotlib.pyplot as plt
+    import altair as alt
+
     st.title("Otimização da Carteira ESG via Simulação de Monte Carlo")
 
     st.markdown("""
     Nesta seção, aplicamos o **método de Monte Carlo** diretamente aos preços históricos das ações ESG.  
     Geramos milhares de carteiras aleatórias para encontrar a **combinação com melhor relação risco/retorno** — medida pelo **Índice de Sharpe**.
-
     ---
     """)
 
@@ -606,7 +606,7 @@ elif page == "Otimização":
     st.markdown("Carregando dados...")
     data = yf.download(selected, period=period)
 
-    # Corrigir caso falte "Adj Close"
+    # Corrigir colunas (Adj Close ou Close)
     if isinstance(data.columns, pd.MultiIndex):
         if "Adj Close" in data.columns.get_level_values(0):
             data = data["Adj Close"]
@@ -617,7 +617,7 @@ elif page == "Otimização":
     elif "Close" in data.columns:
         data = data["Close"]
     else:
-        st.error("Nenhuma coluna de preços ('Adj Close' ou 'Close') foi encontrada nos dados.")
+        st.error("Nenhuma coluna de preços ('Adj Close' ou 'Close') foi encontrada.")
         st.stop()
 
     data = data.dropna()
@@ -635,7 +635,7 @@ elif page == "Otimização":
     st.markdown("### Simulando carteiras...")
 
     num_portfolios = st.slider("Número de carteiras simuladas:", 5000, 50000, 10000, step=5000)
-    rf = 0.1 / 100  # taxa livre de risco anual (ex: 0,1%)
+    rf = 0.1 / 100  # taxa livre de risco anual (0,1%)
 
     results = np.zeros((3, num_portfolios))  # [retorno, risco, Sharpe]
     weights_record = []
@@ -655,7 +655,7 @@ elif page == "Otimização":
         results[2, i] = sharpe_ratio
 
     # ==========================
-    # Identificação da carteira ótima
+    # Carteira ótima
     # ==========================
     max_sharpe_idx = np.argmax(results[2])
     max_sharpe_return = results[0, max_sharpe_idx]
@@ -664,16 +664,14 @@ elif page == "Otimização":
     sharpe_value = results[2, max_sharpe_idx]
 
     # ==========================
-    # Métricas principais
+    # Cards de métricas
     # ==========================
-
     st.markdown("### Resultados da Carteira Ótima")
 
-    # Estilos CSS para os cards
     st.markdown("""
     <style>
     .metric-card {  
-        background-color: #0b1636; 
+        background-color: #102040; 
         border: 1px solid #c5d7ef;
         border-radius: 10px;
         padding: 20px;
@@ -687,11 +685,10 @@ elif page == "Otimização":
     .metric-value {
         font-size: 1.6rem;
         font-weight: 600;
-        color: #e7f0fa; /* azul escuro para contraste */
+        color: #e7f0fa;
     }
     .metric-title {
         font-size: 1.1rem;
-        font-weight: 500;
         color: #e7f0fa;
     }
     .metric-legend {
@@ -705,102 +702,116 @@ elif page == "Otimização":
     </style>
     """, unsafe_allow_html=True)
 
-    # Lógica de legendas dinâmicas
-    if max_sharpe_return > 0.15:
-        retorno_color, retorno_legend = "green", "Retorno alto"
-    elif max_sharpe_return > 0.08:
-        retorno_color, retorno_legend = "orange", "Retorno moderado"
-    else:
-        retorno_color, retorno_legend = "gray", "Retorno baixo"
+    # Lógica de legendas
+    def legenda(valor, faixas):
+        for limite, cor, texto in faixas:
+            if valor <= limite:
+                return cor, texto
+        return faixas[-1][1], faixas[-1][2]
 
-    if max_sharpe_volatility < 0.12:
-        risco_color, risco_legend = "green", "Risco baixo"
-    elif max_sharpe_volatility < 0.20:
-        risco_color, risco_legend = "orange", "Risco médio"
-    else:
-        risco_color, risco_legend = "red", "Risco alto"
+    retorno_color, retorno_legend = legenda(max_sharpe_return, [
+        (0.08, "gray", "Baixo retorno"),
+        (0.15, "orange", "Retorno moderado"),
+        (999, "green", "Retorno alto")
+    ])
 
-    if sharpe_value > 1.5:
-        sharpe_color, sharpe_legend = "green", "Ótimo equilíbrio"
-    elif sharpe_value > 1:
-        sharpe_color, sharpe_legend = "orange", "Equilíbrio bom"
-    else:
-        sharpe_color, sharpe_legend = "red", "Risco alto p/ retorno"
+    risco_color, risco_legend = legenda(max_sharpe_volatility, [
+        (0.12, "green", "Risco baixo"),
+        (0.20, "orange", "Risco médio"),
+        (999, "red", "Risco alto")
+    ])
 
-    # Exibição dos cards
+    sharpe_color, sharpe_legend = legenda(sharpe_value, [
+        (1, "red", "Risco alto p/ retorno"),
+        (1.5, "orange", "Bom equilíbrio"),
+        (999, "green", "Ótimo equilíbrio")
+    ])
+
+    # Mostrar cards
     col1, col2, col3 = st.columns(3)
-    with col1:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-title">Retorno Esperado</div>
-            <div class="metric-value">{max_sharpe_return*100:.2f}%</div>
-            <div class="metric-legend {retorno_color}">{retorno_legend}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col2:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-title">Risco (Volatilidade)</div>
-            <div class="metric-value">{max_sharpe_volatility*100:.2f}%</div>
-            <div class="metric-legend {risco_color}">{risco_legend}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col3:
-        st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-title">Índice de Sharpe</div>
-            <div class="metric-value">{sharpe_value:.2f}</div>
-            <div class="metric-legend {sharpe_color}">{sharpe_legend}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
+    for col, title, val, color, legend in zip(
+        [col1, col2, col3],
+        ["Retorno Esperado", "Risco (Volatilidade)", "Índice de Sharpe"],
+        [f"{max_sharpe_return*100:.2f}%", f"{max_sharpe_volatility*100:.2f}%", f"{sharpe_value:.2f}"],
+        [retorno_color, risco_color, sharpe_color],
+        [retorno_legend, risco_legend, sharpe_legend]
+    ):
+        with col:
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">{title}</div>
+                <div class="metric-value">{val}</div>
+                <div class="metric-legend {color}">{legend}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
     # ==========================
-    # Fronteira de Portfólios
+    # Fronteira de Portfólios (Altair)
     # ==========================
     st.markdown("### Fronteira de Portfólios Simulados")
 
-    fig, ax = plt.subplots(figsize=(9, 5))
-    scatter = ax.scatter(results[1, :], results[0, :],
-                         c=results[2, :], cmap="viridis", alpha=0.6)
-    ax.scatter(max_sharpe_volatility, max_sharpe_return,
-               marker="*", color="red", s=250, label="Carteira Ótima")
-    ax.set_xlabel("Risco (Desvio-Padrão Anualizado)")
-    ax.set_ylabel("Retorno Esperado Anual (%)")
-    ax.set_title("Simulação Monte Carlo – Fronteira de Eficiência ESG")
-    ax.legend()
-    plt.colorbar(scatter, label="Sharpe Ratio")
-    st.pyplot(fig, width=700)
+    df_plot = pd.DataFrame({
+        "Risco": results[1, :],
+        "Retorno": results[0, :],
+        "Sharpe": results[2, :]
+    })
+
+    chart = (
+        alt.Chart(df_plot)
+        .mark_circle(size=60, opacity=0.6)
+        .encode(
+            x=alt.X("Risco", title="Risco (Desvio-Padrão Anualizado)"),
+            y=alt.Y("Retorno", title="Retorno Esperado Anual (%)"),
+            color=alt.Color("Sharpe", scale=alt.Scale(scheme="viridis"), title="Sharpe Ratio"),
+            tooltip=[
+                alt.Tooltip("Risco", format=".2%"),
+                alt.Tooltip("Retorno", format=".2%"),
+                alt.Tooltip("Sharpe", format=".2f")
+            ]
+        )
+        .interactive()
+        .properties(width=700, height=400)
+    )
+
+    best_point = pd.DataFrame({
+        "Risco": [max_sharpe_volatility],
+        "Retorno": [max_sharpe_return]
+    })
+
+    best_chart = alt.Chart(best_point).mark_point(shape="star", size=200, color="red").encode(x="Risco", y="Retorno")
+
+    st.altair_chart(chart + best_chart, use_container_width=True)
 
     # ==========================
-    # Pesos da Carteira Ótima
+    # Gráfico de Pizza (Altair)
     # ==========================
-    st.markdown("### Pesos Ótimos por Ativo")
+    st.markdown("### Distribuição da Carteira Ótima ESG")
 
     weights_df = pd.DataFrame({
         "Ativo": selected,
-        "Peso (%)": np.round(opt_weights * 100, 2)
-    }).sort_values("Peso (%)", ascending=False)
+        "Peso": opt_weights
+    }).sort_values("Peso", ascending=False)
 
-    st.dataframe(weights_df, use_container_width=True)
+    pie_chart = (
+        alt.Chart(weights_df)
+        .mark_arc(innerRadius=60)
+        .encode(
+            theta=alt.Theta("Peso:Q"),
+            color=alt.Color("Ativo:N", legend=alt.Legend(title="Ativos")),
+            tooltip=[
+                alt.Tooltip("Ativo:N"),
+                alt.Tooltip("Peso:Q", format=".1%")
+            ]
+        )
+        .properties(width=500, height=400)
+    )
+
+    st.altair_chart(pie_chart, use_container_width=True)
 
     # ==========================
-    # Gráfico de pizza
-    # ==========================
-    fig2, ax2 = plt.subplots()
-    ax2.pie(opt_weights, labels=weights_df["Ativo"], autopct="%1.1f%%", startangle=90)
-    ax2.set_title("Distribuição da Carteira Ótima ESG")
-    st.pyplot(fig2, width=500)
-
-    # ==========================
-    # Conclusão interpretativa
+    # Conclusão
     # ==========================
     st.success(f"""
     Foram simuladas {num_portfolios:,} carteiras aleatórias.  
     A **carteira ótima** (estrela vermelha) apresenta o **melhor índice de Sharpe**, equilibrando risco e retorno com base em dados reais do Yahoo Finance.
     """)
-
-
-
