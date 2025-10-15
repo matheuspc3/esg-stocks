@@ -17,7 +17,7 @@ st.sidebar.image(logo_path, width=200, use_container_width =True)
 st.sidebar.title("🐺 Projeto ESG - Carteira Sustentável")
 page = st.sidebar.radio(
     "Navegação",
-    ["Eixos Teóricos da Pesquisa", "Novo Mercado"," ISE", "Análise Fundamentalista", "Carteira", "Otimização"],
+    ["Eixos Teóricos da Pesquisa", "Novo Mercado","ISE", "Análise Fundamentalista", "Carteira", "Otimização"],
 )
 
     # ======================================
@@ -26,46 +26,65 @@ page = st.sidebar.radio(
 if page == "Eixos Teóricos da Pesquisa":
     st.title("Eixos Teóricos da Pesquisa")
     st.markdown("""
-    ### Introdução 
-    O trabalho se apoia em três eixos principais: o primeiro discute as políticas ESG como ferramenta estratégica de sustentabilidade corporativa; 
-    o segundo aborda a governança corporativa e o Novo Mercado como mecanismos institucionais de transparência e controle; 
-    e o terceiro relaciona essas práticas ao valor de mercado e ao desempenho financeiro das empresas.
+    ##  Introdução  
 
-    Assim, teoricamente, a pesquisa parte da premissa de que práticas robustas de governança e sustentabilidade — materializadas no Novo Mercado e medidas pelo ISE B3 — 
-    aumentam o valor e a eficiência das companhias no longo prazo.
-    ---
-    ### 🎓 1. Eixo 1 – ESG (Environmental, Social and Governance)
-    O conceito de ESG surgiu a partir das práticas de responsabilidade social corporativa e foi institucionalizado em relatórios do World Bank (2004) e da ONU (Agenda 2030), 
-    com o objetivo de mensurar o impacto ambiental, social e de governança das empresas.
+    Este trabalho fundamenta-se em **três eixos principais**:  
+    1. **Políticas ESG** como ferramenta estratégica de sustentabilidade corporativa;  
+    2. **Governança corporativa e o Novo Mercado** como mecanismos de transparência e controle;  
+    3. **Valor de mercado e desempenho financeiro** das empresas.  
 
-    A ESG é tratada como um instrumento de gestão estratégica que alinha os objetivos corporativos ao desenvolvimento sustentável, promovendo a criação de valor no longo prazo.
-    ---
-    ### 2. Eixo 2 – Governança Corporativa e o Novo Mercado
-    A governança corporativa é o sistema pelo qual as empresas são dirigidas e controladas (Carvalho, 2003).
-    O Novo Mercado da B3, criado em 2000, representa o nível máximo de governança no mercado brasileiro e serve como mecanismo institucional para garantir transparência, equidade e prestação de contas.
-    ---
-    ### 3. Eixo 3 – Valor da Empresa e Desempenho Financeiro
-    A literatura demonstra que a adesão às práticas ESG e de governança tende a aumentar o valor da empresa e a rentabilidade (Santos & Pedreira, 2004; Martins et al., 2006; Ferreira, 2020).
+    A pesquisa parte da premissa de que **práticas sólidas de governança e sustentabilidade** — materializadas no **Novo Mercado** e mensuradas pelo **ISE B3** — 
+    contribuem para **aumentar o valor e a eficiência das companhias no longo prazo.**
 
-    A fundamentação teórica do trabalho se apoia na interseção entre sustentabilidade e governança corporativa como determinantes do valor empresarial.
-    Ou seja:
-    
-    ESG fornece as diretrizes estratégicas de sustentabilidade →
-    O Novo Mercado fornece a estrutura institucional de governança →
-    E o resultado esperado é melhor desempenho financeiro e reputacional.
     ---
-    [Artigo base do trabalho](https://drive.google.com/file/d/1ioDajfIz_cGj8WEVl5o9Ksmvf-hi9Cxm/view?usp=sharing)
+
+    ###  1. Eixo 1 – ESG (*Environmental, Social and Governance*)  
+
+    O conceito de **ESG** surgiu das práticas de **responsabilidade social corporativa**, sendo institucionalizado em relatórios do **World Bank (2004)** e da **ONU (Agenda 2030)**.  
+    O objetivo é **mensurar o impacto ambiental, social e de governança** das empresas, promovendo a sustentabilidade como parte da estratégia de negócios.  
+
+    > A ESG é um **instrumento de gestão estratégica**, alinhando os objetivos corporativos ao desenvolvimento sustentável e promovendo a criação de valor no longo prazo.
+
     ---
-    **Referências**
-        B3. (2024). Diretrizes do Novo Mercado. São Paulo: Brasil, Bolsa, Balcão.
-        B3. (2025). Relatório Anual de Sustentabilidade. São Paulo: B3.
-        CARVALHO, A. G. (2003). Governança Corporativa: O Papel dos Conselhos de Administração. São Paulo: Atlas.
-        MARTINS, O. S.; PROCIAOY, J. L.; VERDI, R. (2009). Estrutura de Governança e Valor de Mercado. Revista de Administração.
-        ONU BRASIL. (2025). Objetivos de Desenvolvimento Sustentável. Brasília: Organização das Nações Unidas.
-        RSD JOURNAL. (2024). ESG e Desempenho Financeiro no Mercado Brasileiro. Revista Scientific Development.
-        WORLD BANK. (2004). World Development Report: Sustainable Development. Washington, D.C.
-    
+
+    ###  2. Eixo 2 – Governança Corporativa e o Novo Mercado  
+
+    > “Governança corporativa é o sistema pelo qual as empresas são dirigidas e controladas.” – *Carvalho (2003)*  
+
+    O **Novo Mercado da B3**, criado em **2000**, representa o **nível máximo de governança corporativa** no mercado brasileiro.  
+    Ele funciona como um **mecanismo institucional de confiança**, assegurando **transparência, equidade e prestação de contas** entre empresas e investidores.
+
+    ---
+
+    ###  3. Eixo 3 – Valor da Empresa e Desempenho Financeiro  
+
+    A literatura demonstra que empresas com **melhores práticas ESG e de governança** tendem a apresentar **maior valor de mercado, rentabilidade e reputação**  
+    (*Santos & Pedreira, 2004; Martins et al., 2006; Ferreira, 2020*).  
+
+    A base teórica do trabalho mostra que:  
+
+    > **ESG** fornece as diretrizes estratégicas de sustentabilidade  
+    > **Novo Mercado** estabelece a estrutura institucional de governança  
+    > **Resultado esperado:** melhor desempenho financeiro e reputacional  
+
+    ---
+
+     **Artigo base:**  
+    [ESG e Desempenho Financeiro no Mercado Brasileiro](https://drive.google.com/file/d/1ioDajfIz_cGj8WEVl5o9Ksmvf-hi9Cxm/view?usp=sharing)
+
+    ---
+
+    ###  Referências  
+
+    - **B3.** (2024). *Diretrizes do Novo Mercado.* São Paulo: Brasil, Bolsa, Balcão.  
+    - **B3.** (2025). *Relatório Anual de Sustentabilidade.* São Paulo: B3.  
+    - **CARVALHO, A. G.** (2003). *Governança Corporativa: O Papel dos Conselhos de Administração.* São Paulo: Atlas.  
+    - **MARTINS, O. S.; PROCIAOY, J. L.; VERDI, R.** (2009). *Estrutura de Governança e Valor de Mercado.* Revista de Administração.  
+    - **ONU BRASIL.** (2025). *Objetivos de Desenvolvimento Sustentável.* Brasília: Organização das Nações Unidas.  
+    - **RSD JOURNAL.** (2024). *ESG e Desempenho Financeiro no Mercado Brasileiro.* Revista Scientific Development.  
+    - **WORLD BANK.** (2004). *World Development Report: Sustainable Development.* Washington, D.C.  
     """)
+
 
     # ======================================
     # PÁGINA 2 - NOVO MERCADO
@@ -73,41 +92,75 @@ if page == "Eixos Teóricos da Pesquisa":
 elif page == "Novo Mercado":
     st.title("Novo Mercado")
     st.markdown("""
-    ### O Novo Mercado: A Nova Era da Governança Corporativa no Brasil
-    
+    ##  O Novo Mercado: A Nova Era da Governança Corporativa no Brasil  
+
     O **Novo Mercado** é o segmento de listagem da **B3 – Brasil, Bolsa, Balcão**, criado para reunir as empresas com **os mais altos padrões de governança corporativa** do país.  
-    Ele surgiu com um propósito claro: **aumentar a transparência, proteger os investidores e fortalecer a confiança no mercado de capitais brasileiro**.
-    
-    No Novo Mercado, as empresas **assumem compromissos mais rigorosos** do que os exigidos por lei. Isso inclui:
-    - Emitir apenas ações ordinárias (com direito a voto);  
-    - Manter **conselhos de administração com membros independentes**;  
-    - Realizar **auditorias externas e independentes**;  
-    - E divulgar **informações financeiras e socioambientais com alto grau de transparência**.  
-    
-    Essas práticas criam um ambiente mais seguro e previsível, tanto para as empresas quanto para os investidores, reduzindo riscos e aumentando a credibilidade do mercado (B3, 2024).
-    
-    Estudos mostram que companhias listadas no Novo Mercado costumam apresentar **melhor desempenho financeiro**, **maior liquidez** e **menor volatilidade** das ações (Santos & Pedreira, 2004; Martins et al., 2006).  
-    Esses resultados estão diretamente ligados a três indicadores fundamentais de valor corporativo:
-    
-    - **ROA (Return on Assets)**: mede a eficiência da empresa em gerar lucro a partir de seus ativos. Empresas do Novo Mercado, com gestão mais transparente e eficiente, costumam apresentar **ROA mais elevado**, refletindo maior rentabilidade e melhor uso de recursos (Procianoy & Verdi, 2009).  
-    - **VPL (Valor Presente Líquido)**: representa o valor atual dos fluxos de caixa futuros da empresa. A boa governança reduz riscos e custos de capital, o que **aumenta o VPL**, indicando que o negócio gera valor sustentável ao longo do tempo (Costa, 2018; Machado, 2020).  
-    - **Q de Tobin**: compara o valor de mercado da empresa com o custo de reposição de seus ativos. Quando o Q de Tobin é maior que 1, significa que o mercado reconhece **um valor superior ao contábil**, geralmente consequência de práticas sólidas de governança e desempenho ESG (Silveira & Barros, 2019).  
-    
-    Esses indicadores mostram, de forma objetiva, que **boas práticas de governança corporativa criam valor real para os acionistas**.  
-    Empresas do Novo Mercado, ao combinarem governança avançada e responsabilidade socioambiental, conseguem equilibrar **rentabilidade, solidez e impacto positivo**.
-    
-    Outro ponto importante é que o Novo Mercado **anda lado a lado com as práticas ESG** – sigla para *Environmental, Social and Governance*.  
-    Hoje, **quase 80% das empresas que compõem o Índice de Sustentabilidade Empresarial (ISE B3)** também fazem parte do Novo Mercado (Reis, 2024).  
-    Isso demonstra que **transparência, sustentabilidade e valor econômico** caminham juntos, reforçando a importância de unir propósito e desempenho.
-    
-    Mais do que um selo de qualidade, o Novo Mercado é um **compromisso com o futuro**.  
-    Ao unir **ética, sustentabilidade e desempenho financeiro**, ele coloca o Brasil entre os países que tratam a governança corporativa como um pilar essencial para o crescimento econômico sustentável.
-    
+    Ele surgiu com um propósito claro: **aumentar a transparência, proteger os investidores e fortalecer a confiança no mercado de capitais brasileiro.**
+
     ---
-    
-    **Fontes:**  
-    B3 (2024, 2025); Carvalho (2003); Procianoy & Verdi (2009); Santos & Pedreira (2004); Martins et al. (2006); Reis (2024).
+
+    ###  Compromissos do Novo Mercado  
+
+    As empresas listadas nesse segmento **assumem compromissos mais rigorosos** do que os exigidos pela legislação comum. Entre eles:  
+
+    -  Emitir apenas **ações ordinárias** (com direito a voto);  
+    -  Manter **conselhos de administração com membros independentes**;  
+    -  Realizar **auditorias externas e independentes**;  
+    -  Divulgar **informações financeiras e socioambientais com alto grau de transparência**.  
+
+    Essas práticas criam um **ambiente mais seguro e previsível**, reduzindo riscos e aumentando a **credibilidade e liquidez** do mercado (B3, 2024).
+
+    ---
+
+    ###  Desempenho e Valor de Mercado  
+
+    Estudos apontam que companhias do Novo Mercado costumam apresentar:  
+    - **Melhor desempenho financeiro**,  
+    - **Maior liquidez das ações**, e  
+    - **Menor volatilidade** (Santos & Pedreira, 2004; Martins et al., 2006).  
+
+    Esses resultados estão diretamente ligados a **três indicadores fundamentais de valor corporativo**:
+
+    1. **ROA (Return on Assets)**  
+    Mede a eficiência da empresa em gerar lucro a partir de seus ativos.  
+    Empresas do Novo Mercado, com **gestão mais transparente e eficiente**, tendem a apresentar **ROA mais elevado**, refletindo melhor rentabilidade (Procianoy & Verdi, 2009).
+
+    2. **VPL (Valor Presente Líquido)**  
+    Representa o valor atual dos fluxos de caixa futuros da empresa.  
+    Uma boa governança reduz riscos e custos de capital, o que **aumenta o VPL**, indicando **valor sustentável no longo prazo** (Costa, 2018; Machado, 2020).
+
+    3. **Q de Tobin**  
+    Compara o valor de mercado da empresa com o custo de reposição de seus ativos.  
+    Quando o Q de Tobin é **maior que 1**, o mercado reconhece **valor superior ao contábil**, resultado de **boas práticas de governança e desempenho ESG** (Silveira & Barros, 2019).
+
+    ---
+
+    ###  Conexão entre Novo Mercado e ESG  
+
+    O Novo Mercado **anda lado a lado com as práticas ESG** (*Environmental, Social and Governance*).  
+    Atualmente, **quase 80% das empresas que compõem o Índice de Sustentabilidade Empresarial (ISE B3)** também fazem parte do Novo Mercado (Reis, 2024).  
+
+    > Isso demonstra que **transparência, sustentabilidade e valor econômico** caminham juntos, reforçando a importância de unir **propósito e desempenho**.
+
+    ---
+
+    ###  Conclusão  
+
+    Mais do que um **selo de qualidade**, o Novo Mercado é um **compromisso com o futuro**.  
+    Ao unir **ética, sustentabilidade e desempenho financeiro**, ele posiciona o Brasil entre os países que tratam a **governança corporativa como pilar essencial para o crescimento econômico sustentável.**
+
+    ---
+
+    ###  Fontes  
+
+    - **B3** (2024, 2025). *Diretrizes do Novo Mercado*; *Relatório Anual de Sustentabilidade.*  
+    - **CARVALHO, A. G.** (2003). *Governança Corporativa: O Papel dos Conselhos de Administração.* São Paulo: Atlas.  
+    - **PROCIAOY, J. L.; VERDI, R.** (2009). *Estrutura de Governança e Valor de Mercado.* Revista de Administração.  
+    - **SANTOS, R.; PEDREIRA, F.** (2004). *Governança Corporativa e Desempenho Financeiro.*  
+    - **MARTINS, O. S.** et al. (2006). *Evidências de Valor nas Práticas de Governança.*  
+    - **REIS, A.** (2024). *Sustentabilidade e Novo Mercado: Um Estudo Empírico.*  
     """)
+
     # ======================================
     # PÁGINA 3 - ISE (ÍNDICE DE SUSTENTABILIDADE EMPRESARIAL)
     # ======================================
@@ -165,9 +218,10 @@ elif page == "ISE":
     # ======================================
     # PÁGINA 4 - ANÁLISE FUNDAMENTALISTA 
     # ======================================
-elif page == " Análise Fundamentalista":
+elif page == "Análise Fundamentalista":
     st.markdown("""
-    ### Análise Fundamentalista de Empresas (2025)
+    # Análise Fundamentalista de Empresas (2025)
+                
     Selecione um ticker abaixo para visualizar os principais indicadores financeiros e comentários sobre seu desempenho.
     """)
 
@@ -188,58 +242,88 @@ elif page == " Análise Fundamentalista":
     # Dropdown de seleção
     ticker = st.selectbox("Selecione uma empresa:", STOCKS)
 
-    # Obtém os dados
+    # Obtém os dados do Yahoo Finance
     data = yf.Ticker(ticker)
+    info = data.info
 
-    st.subheader(f"📊 {data.info.get('shortName', ticker)}")
+    st.subheader(f"📊 {info.get('shortName', ticker)}")
 
     col1, col2 = st.columns(2)
 
     with col1:
         st.markdown("#### Indicadores Financeiros")
+
+        # Cálculos adicionais
+        roa = info.get("returnOnAssets", None)
+        roe = info.get("returnOnEquity", None)
+        ebitda = info.get("ebitda", None)
+        ev = info.get("enterpriseValue", None)
+        total_assets = info.get("totalAssets", None)
+        total_debt = info.get("totalDebt", None)
+        cash = info.get("totalCash", None)
+
+        # EV/EBITDA
+        ev_ebitda = ev / ebitda if ev and ebitda and ebitda != 0 else None
+
+        # ROIC (aproximação)
+        invested_capital = (total_debt if total_debt else 0) + (info.get("totalStockholderEquity", 0)) - (cash if cash else 0)
+        roic = (info.get("ebit", 0) * (1 - 0.34)) / invested_capital if invested_capital else None  # considerando alíquota média de 34%
+
         fundamentals = {
-            "Setor": data.info.get("sector", "N/A"),
-            "Valor de Mercado (R$)": f"{data.info.get('marketCap', 0)/1e9:.2f} Bi",
-            "P/L": round(data.info.get("trailingPE", 0), 2),
-            "P/VP": round(data.info.get("priceToBook", 0), 2),
-            "ROE (%)": round(data.info.get("returnOnEquity", 0) * 100, 2) if data.info.get("returnOnEquity") else "N/A",
-            "Dividend Yield (%)": round(data.info.get("dividendYield", 0) * 100, 2) if data.info.get("dividendYield") else "N/A",
+            "Setor": info.get("sector", "N/A"),
+            "Valor de Mercado (R$)": f"{info.get('marketCap', 0)/1e9:.2f} Bi",
+            "P/L": round(info.get("trailingPE", 0), 2),
+            "P/VP": round(info.get("priceToBook", 0), 2),
+            "ROE (%)": round(roe * 100, 2) if roe else "N/A",
+            "ROA (%)": round(roa * 100, 2) if roa else "N/A",
+            "ROIC (%)": round(roic * 100, 2) if roic else "N/A",
+            "EV/EBITDA": round(ev_ebitda, 2) if ev_ebitda else "N/A",
+            "Dividend Yield (%)": round(info.get("dividendYield", 0) * 100, 2) if info.get("dividendYield") else "N/A",
         }
+
         st.table(pd.DataFrame(fundamentals.items(), columns=["Indicador", "Valor"]))
 
     with col2:
-        st.markdown("####  Interpretação Fundamentalista")
-        pe = data.info.get("trailingPE", None)
-        roe = data.info.get("returnOnEquity", None)
-        dy = data.info.get("dividendYield", None)
+        st.markdown("#### Interpretação Fundamentalista")
+        pe = info.get("trailingPE", None)
+        roe = info.get("returnOnEquity", None)
+        roa = info.get("returnOnAssets", None)
+        dy = info.get("dividendYield", None)
 
         insights = []
 
         if pe and roe:
             if pe < 10 and roe > 0.15:
-                insights.append("**Valuation descontado**: P/L baixo e ROE alto sugerem empresa eficiente e barata.\n")
+                insights.append("***Valuation descontado***: P/L baixo e ROE alto sugerem empresa eficiente e barata.\n")
             elif pe > 20 and roe < 0.10:
-                insights.append("**Valuation elevado**: P/L alto e ROE baixo indicam possível sobreprecificação.\n")
+                insights.append("***Valuation elevado***: P/L alto e ROE baixo indicam possível sobreprecificação.\n")
             else:
-                insights.append("P/L e ROE em linha com o mercado.\n")
+                insights.append("***P/L e ROE em linha com o mercado.***\n")
         else:
-            insights.append("Dados de P/L ou ROE indisponíveis.\n")
+            insights.append("***Dados de P/L ou ROE indisponíveis.***\n")
 
+        if roa and roa > 0.05:
+            insights.append("***Eficiência operacional sólida***: ROA acima de 5% indica bom aproveitamento dos ativos.\n")
         if dy and dy > 0.04:
-            insights.append("**Bom pagador de dividendos**: Dividend Yield acima de 4%.\n")
+            insights.append("***Bom pagador de dividendos***: Dividend Yield acima de 4%.\n")
         else:
-            insights.append("Dividend Yield modesto ou não informado.\n")
+            insights.append("***Dividend Yield modesto ou não informado.***\n")
 
-        insights.append("**Histórico de crescimento**: verifique evolução do patrimônio líquido e lucros no DRE.\n")
+        if roic and roic > 0.10:
+            insights.append("***Retorno consistente sobre o capital investido (ROIC)***: acima de 10%, mostra gestão eficiente.\n")
+        if ev_ebitda and ev_ebitda < 8:
+            insights.append("***Valuation atrativo***: EV/EBITDA abaixo de 8 pode indicar preço interessante para investidores.\n")
+
+        insights.append("***Histórico de crescimento***: verifique evolução do patrimônio líquido e lucros no DRE.\n")
 
         st.markdown("\n".join(insights))
 
-    # Mostra histórico de preços
+    # Histórico de preço (5 anos)
     st.markdown("#### Histórico de Preço (5 anos)")
     hist = data.history(period="5y")
     st.line_chart(hist["Close"])
 
-    st.caption("Fonte: Yahoo Finance — Dados sujeitos a atualização.")
+    st.caption("Fonte: Yahoo Finance — Dados sujeitos a atualização.")
 
     # ======================================
     # PÁGINA 5 - CARTEIRA 
