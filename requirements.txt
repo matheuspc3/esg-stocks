@@ -5,4 +5,4 @@ numpy
 altair
 plotly
 openpyxl
-matplotlib
+matplotlib==3.7.3
