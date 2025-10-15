@@ -799,7 +799,7 @@ elif page == "Otimização":
     # ==========================
     st.success(f"""
     Foram simuladas {num_portfolios:,} carteiras aleatórias.  
-    A **carteira ótima** (estrela vermelha) apresenta o **melhor índice de Sharpe**, equilibrando risco e retorno com base em dados reais do Yahoo Finance.
+    A **carteira ótima** apresenta o **melhor índice de Sharpe**, equilibrando risco e retorno com base em dados reais do Yahoo Finance.
     """)
 
 
