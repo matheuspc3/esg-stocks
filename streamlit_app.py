@@ -3,7 +3,7 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import altair as alt
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 
 #import openpyxl as px # verificar se ainda é necessario 
