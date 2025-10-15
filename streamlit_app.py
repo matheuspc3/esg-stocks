@@ -159,8 +159,7 @@ elif page == "Novo Mercado":
     - **MARTINS, O. S.** et al. (2006). *Evidências de Valor nas Práticas de Governança.*  
     - **REIS, A.** (2024). *Sustentabilidade e Novo Mercado: Um Estudo Empírico.*  
     """)
-    df3 = pd.read_csv('novo-mercado.csv')
-    st.dataframe(df3)
+
     # ======================================
     # PÁGINA 3 - ISE (ÍNDICE DE SUSTENTABILIDADE EMPRESARIAL)
     # ======================================
