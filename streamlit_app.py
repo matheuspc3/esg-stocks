@@ -71,12 +71,6 @@ if page == "Eixos Teóricos da Pesquisa":
     > **Resultado esperado:** melhor desempenho financeiro e reputacional  
 
     ---
-    *Comparativo dos Segmentos de Governança Corporativa da B3*
-    """)
-    df3 = pd.read_csv('novo-mercado.csv')
-    st.dataframe(df3)
-    st.markdown("""
-    ---
      **Artigo base:**  
     
     [ESG e Desempenho Financeiro no Mercado Brasileiro](https://drive.google.com/file/d/1D3O7eqIXWSuidSOqf2PPtzdCXIYkoY0W/view?usp=sharing)
@@ -140,7 +134,12 @@ elif page == "Novo Mercado":
 
     3. **Volume de Ação**: que mede a quantidade de ações negociadas, que é um indicador de liquidez (Correia, 2014; Bastos et al, 2020)
     ---
-
+    *Comparativo dos Segmentos de Governança Corporativa da B3*
+    """)
+    df3 = pd.read_csv('novo-mercado.csv')
+    st.dataframe(df3)
+    st.markdown("""
+    ---
     ###  Conexão entre Novo Mercado e ESG  
 
     O Novo Mercado **anda lado a lado com as práticas ESG** (*Environmental, Social and Governance*).  
