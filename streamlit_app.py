@@ -3,7 +3,7 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import altair as alt
-import openpyxl as px
+#import openpyxl as px
 # ======================================
 # CONFIGURAÇÕES GERAIS
 # ======================================
