@@ -6,4 +6,3 @@ openpyxl
 matplotlib
 numpy
 random
-matplotlib.pyplot
