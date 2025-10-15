@@ -760,19 +760,19 @@ elif page == "Otimização":
     # ==========================
     # Fronteira de Portfólios
     # ==========================
-    st.markdown("### Fronteira de Portfólios Simulados")
+    # st.markdown("### Fronteira de Portfólios Simulados")
 
-    fig, ax = plt.subplots(figsize=(9, 5))
-    scatter = ax.scatter(results[1, :], results[0, :],
-                         c=results[2, :], cmap="viridis", alpha=0.6)
-    ax.scatter(max_sharpe_volatility, max_sharpe_return,
-               marker="*", color="red", s=250, label="Carteira Ótima")
-    ax.set_xlabel("Risco (Desvio-Padrão Anualizado)")
-    ax.set_ylabel("Retorno Esperado Anual (%)")
-    ax.set_title("Simulação Monte Carlo – Fronteira de Eficiência ESG")
-    ax.legend()
-    plt.colorbar(scatter, label="Sharpe Ratio")
-    st.pyplot(fig, width=700)
+    # fig, ax = plt.subplots(figsize=(9, 5))
+    # scatter = ax.scatter(results[1, :], results[0, :],
+    #                      c=results[2, :], cmap="viridis", alpha=0.6)
+    # ax.scatter(max_sharpe_volatility, max_sharpe_return,
+    #            marker="*", color="red", s=250, label="Carteira Ótima")
+    # ax.set_xlabel("Risco (Desvio-Padrão Anualizado)")
+    # ax.set_ylabel("Retorno Esperado Anual (%)")
+    # ax.set_title("Simulação Monte Carlo – Fronteira de Eficiência ESG")
+    # ax.legend()
+    # plt.colorbar(scatter, label="Sharpe Ratio")
+    # st.pyplot(fig, width=700)
 
     # ==========================
     # Pesos da Carteira Ótima
@@ -789,10 +789,10 @@ elif page == "Otimização":
     # ==========================
     # Gráfico de pizza
     # ==========================
-    fig2, ax2 = plt.subplots()
-    ax2.pie(opt_weights, labels=weights_df["Ativo"], autopct="%1.1f%%", startangle=90)
-    ax2.set_title("Distribuição da Carteira Ótima ESG")
-    st.pyplot(fig2, width=500)
+    #fig2, ax2 = plt.subplots()
+    #ax2.pie(opt_weights, labels=weights_df["Ativo"], autopct="%1.1f%%", startangle=90)
+    #ax2.set_title("Distribuição da Carteira Ótima ESG")
+    #st.pyplot(fig2, width=500)
 
     # ==========================
     # Conclusão interpretativa
