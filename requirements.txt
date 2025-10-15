@@ -1,8 +1,8 @@
 streamlit
 yfinance
-pandas 
-altair 
-openpyxl 
-matplotlib
+pandas
 numpy
-random
+altair
+plotly
+openpyxl
+matplotlib
