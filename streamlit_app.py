@@ -88,10 +88,10 @@ if page == "Eixos Teóricos da Pesquisa":
     - **WORLD BANK.** (2004). *World Development Report: Sustainable Development.* Washington, D.C.  
     """)
 
-
     # ======================================
     # PÁGINA 2 - NOVO MERCADO
     # ======================================
+
 elif page == "Novo Mercado":
     st.title("Novo Mercado")
     st.markdown("""
@@ -140,9 +140,13 @@ elif page == "Novo Mercado":
     Atualmente, **quase 80% das empresas que compõem o Índice de Sustentabilidade Empresarial (ISE B3)** também fazem parte do Novo Mercado (Reis, 2024).  
 
     > Isso demonstra que **transparência, sustentabilidade e valor econômico** caminham juntos, reforçando a importância de unir **propósito e desempenho**.
-
     ---
+    ###   B3: Estrutura de Governança por Segmento
+    """)
+    df = pd.read_csv('novo_mercado.csv')
+    st.dataframe(df)
 
+    st.markdown("""
     ###  Conclusão  
 
     Mais do que um **selo de qualidade**, o Novo Mercado é um **compromisso com o futuro**.  
